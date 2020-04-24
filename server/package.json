@@ -30,7 +30,6 @@
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
-    "@ba/prisma": "*",
     "@ba/schema": "*",
     "apollo-datasource": "^0.7.0",
     "apollo-datasource-rest": "^0.8.1",
