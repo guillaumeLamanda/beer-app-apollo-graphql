@@ -1,0 +1,15 @@
+{
+  "name": "@ba/schema",
+  "version": "1.0.0",
+  "description": "Beer App GraphQL schema",
+  "main": "src",
+  "license": "MIT",
+  "scripts": {
+    "generate": "graphql-codegen"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "1.13.3",
+    "@graphql-codegen/typescript": "1.13.3",
+    "@graphql-codegen/typescript-resolvers": "1.13.3"
+  }
+}

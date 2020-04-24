@@ -1,0 +1,27 @@
+{
+  "name": "graphql-beer-app",
+  "version": "1.0.0",
+  "description": "GraphQL Beers app with react",
+  "workspaces": [
+    "client",
+    "schema",
+    "server"
+  ],
+  "scripts": {
+    "client:start": "yarn workspace @ba/client run start",
+    "client:build": "yarn workspace @ba/client run build",
+    "server:start": "yarn workspace @ba/server run start",
+    "server:build": "yarn workspace @ba/server run build",
+    "server:dev": "yarn workspace @ba/server run dev",
+    "server:generate": "yarn workspace @ba/server run generate",
+    "schema:generate": "yarn workspace @ba/schema run generate"
+  },
+  "author": "Guillaume Lamanda <guillaume.lamanda@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "@types/node": "^13.13.1",
+    "tsc": "^1.20150623.0",
+    "typescript": "^3.8.3"
+  }
+}

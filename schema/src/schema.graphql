@@ -1,0 +1,37 @@
+type Beer {
+  id: ID!
+  name: String!
+  tagline: String!
+  description: String!
+}
+
+input BeersInput {
+  page: Int!
+  pageSize: Int!
+}
+
+extend type Query {
+  beer(id: ID!): Beer!
+  beers(input: BeersInput): [Beer!]!
+}
+
+type User {
+  id: ID!
+  name: String!
+  token: String
+  beers: [Beer!]!
+  followings: [User!]!
+  followers: [User!]!
+}
+
+type Query {
+  users: [User!]!
+  user(id: ID!): User
+  me: User!
+}
+
+type Mutation {
+  register(name: String!): User!
+  login(name: String!): User!
+  toogleBeerLike(beerId: ID!): User!
+}
