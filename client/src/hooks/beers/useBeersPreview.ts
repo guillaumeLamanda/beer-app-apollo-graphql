@@ -1,16 +1,24 @@
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import { Beer } from "@ba/schema";
 import { useBeersPagination } from "./useBeersPagination";
 
+export const BeerPreviewFragment = gql`
+  fragment BeerPreviewFragment on Beer {
+    id
+    name
+  }
+`;
+
 const query = gql`
   query useBeersPreview($page: Int!) {
     beers(input: { page: $page, pageSize: 10 }) {
-      id
-      name
+      ...BeerPreviewFragment
     }
   }
+
+  ${BeerPreviewFragment}
 `;
 
 type TData = { beers: Array<Pick<Beer, "id" | "name">> };

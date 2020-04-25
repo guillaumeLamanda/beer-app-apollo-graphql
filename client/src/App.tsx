@@ -1,10 +1,10 @@
 import React from "react";
-import { Grommet, Box } from "grommet";
-import { Switch, Route, BrowserRouter } from "react-router-dom";
-import { Navbar, BeerDetail } from "./components";
+import { Grommet } from "grommet";
+import { BrowserRouter } from "react-router-dom";
+import { Navbar } from "./components";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
-import { BeersPage } from "./pages";
+import { Pages } from "./pages";
 import { theme } from "./theme";
 
 const resolvers: any = [];
@@ -22,12 +22,7 @@ function App() {
       <BrowserRouter>
         <Grommet plain theme={theme}>
           <Navbar />
-          <Box pad={{ horizontal: "large" }}>
-            <Switch>
-              <Route exact path="/beers/:beerId" component={BeerDetail} />
-              <Route exact path="/beers" component={BeersPage} />
-            </Switch>
-          </Box>
+          <Pages />
         </Grommet>
       </BrowserRouter>
     </ApolloProvider>

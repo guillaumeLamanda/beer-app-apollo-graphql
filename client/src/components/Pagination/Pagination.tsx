@@ -13,7 +13,13 @@ const BeersPagination: FC<BeersPaginationProps> = ({
   onPrevious,
   onNext,
 }) => (
-  <Box direction="row" pad="small" gap="small" align="center">
+  <Box
+    direction="row"
+    pad="small"
+    gap="small"
+    align="center"
+    margin={{ horizontal: "auto" }}
+  >
     <Button icon={<Previous />} onClick={onPrevious} />
     <Text>{page}</Text>
     <Button icon={<Next />} onClick={onNext} />

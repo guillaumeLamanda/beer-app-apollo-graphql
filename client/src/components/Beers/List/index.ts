@@ -1,1 +1,1 @@
-export { default as BeersList } from "./BeersListContainer";
+export { default as BeersList } from "./BeersList";

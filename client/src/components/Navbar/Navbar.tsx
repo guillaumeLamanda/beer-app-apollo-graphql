@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Nav, Heading, Box, Text, Anchor } from "grommet";
+import { Nav, Heading, Box, Text } from "grommet";
 import { AnchorLink } from "../AnchorLink/AnchorLink";
 
 type Props = {};

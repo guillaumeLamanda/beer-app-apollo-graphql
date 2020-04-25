@@ -1,6 +1,7 @@
-import { ThemeType } from "grommet";
+import { ThemeType, grommet } from "grommet";
+import { deepMerge } from "grommet/utils";
 
-export const theme: ThemeType = {
+export const beerTheme: ThemeType = {
   global: {
     colors: {
       brand: {
@@ -134,3 +135,5 @@ export const theme: ThemeType = {
     },
   },
 };
+
+export const theme = deepMerge(grommet, beerTheme);
