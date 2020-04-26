@@ -1,5 +1,5 @@
 import React from "react";
-import { Grommet, Box } from "grommet";
+import { Grommet, Box, Footer, Text } from "grommet";
 import { BrowserRouter } from "react-router-dom";
 import { Navbar } from "./components";
 import { ApolloProvider } from "@apollo/react-hooks";
@@ -91,6 +91,12 @@ function App() {
             <Box fill pad={{ horizontal: "large" }}>
               <Pages />
             </Box>
+            <Footer pad="large" background="dark-1" justify="center">
+              <Text
+                color="text-weak"
+                size="small"
+              >{`Avec ♥️ par Guillaume Lamanda pour le BrestJS`}</Text>
+            </Footer>
           </Box>
         </BrowserRouter>
       </ApolloProvider>

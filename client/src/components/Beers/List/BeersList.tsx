@@ -9,15 +9,13 @@ type Props = {
 
 const BeersList: FC<Props> = ({ beers }) =>
   !!beers.length ? (
-    <>
-      <Box as="ul">
-        {beers.map(({ id, name }) => (
-          <Box key={id} pad="medium">
-            <AnchorLink to={`/beers/${id}`} label={name} />
-          </Box>
-        ))}
-      </Box>
-    </>
+    <Box as="ul">
+      {beers.map(({ id, name }) => (
+        <Box key={id} pad="medium">
+          <AnchorLink to={`/beers/${id}`} label={name} />
+        </Box>
+      ))}
+    </Box>
   ) : (
     <p>Aucunes bières à montrer</p>
   );
