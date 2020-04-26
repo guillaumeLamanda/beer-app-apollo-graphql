@@ -1,18 +1,15 @@
 import { Anchor, AnchorProps } from "grommet";
 import React from "react";
-import { Link, LinkProps } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 export const AnchorLink: React.FC<AnchorLinkProps> = (props) => {
-  return (
-    <Anchor
-      as={({ colorProp, hasIcon, hasLabel, focus, ...props }) => (
-        <Link {...props} />
-      )}
-      {...props}
-    />
-  );
+  const { push } = useHistory();
+  const onClick = () => push(props.to);
+
+  return <Anchor onClick={onClick} {...props} />;
 };
 
-export type AnchorLinkProps = LinkProps &
-  AnchorProps &
+export type AnchorLinkProps = {
+  to: string;
+} & AnchorProps &
   Omit<JSX.IntrinsicElements["a"], "color">;
