@@ -23,6 +23,11 @@ export type BeersInput = {
   pageSize: Scalars['Int'];
 };
 
+export enum LikeAction {
+  Like = 'like',
+  Dislike = 'dislike'
+}
+
 export type Mutation = {
    __typename?: 'Mutation';
   register: User;
@@ -69,6 +74,12 @@ export type QueryUserArgs = {
   id: Scalars['ID'];
 };
 
+export type Subscription = {
+   __typename?: 'Subscription';
+  userLoggedIn?: Maybe<User>;
+  userLikedABeer?: Maybe<UserLike>;
+};
+
 export type User = {
    __typename?: 'User';
   id: Scalars['ID'];
@@ -77,6 +88,13 @@ export type User = {
   beers: Array<Beer>;
   followings: Array<User>;
   followers: Array<User>;
+};
+
+export type UserLike = {
+   __typename?: 'UserLike';
+  user: User;
+  beer: Beer;
+  action: LikeAction;
 };
 
 
@@ -160,6 +178,9 @@ export type ResolversTypes = {
   Int: ResolverTypeWrapper<Scalars['Int']>,
   User: ResolverTypeWrapper<User>,
   Mutation: ResolverTypeWrapper<{}>,
+  Subscription: ResolverTypeWrapper<{}>,
+  UserLike: ResolverTypeWrapper<UserLike>,
+  LikeAction: LikeAction,
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
 };
 
@@ -173,6 +194,9 @@ export type ResolversParentTypes = {
   Int: Scalars['Int'],
   User: User,
   Mutation: {},
+  Subscription: {},
+  UserLike: UserLike,
+  LikeAction: LikeAction,
   Boolean: Scalars['Boolean'],
 };
 
@@ -198,6 +222,11 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   users?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>,
 };
 
+export type SubscriptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = {
+  userLoggedIn?: SubscriptionResolver<Maybe<ResolversTypes['User']>, "userLoggedIn", ParentType, ContextType>,
+  userLikedABeer?: SubscriptionResolver<Maybe<ResolversTypes['UserLike']>, "userLikedABeer", ParentType, ContextType>,
+};
+
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
@@ -208,11 +237,20 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
+export type UserLikeResolvers<ContextType = any, ParentType extends ResolversParentTypes['UserLike'] = ResolversParentTypes['UserLike']> = {
+  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>,
+  beer?: Resolver<ResolversTypes['Beer'], ParentType, ContextType>,
+  action?: Resolver<ResolversTypes['LikeAction'], ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
 export type Resolvers<ContextType = any> = {
   Beer?: BeerResolvers<ContextType>,
   Mutation?: MutationResolvers<ContextType>,
   Query?: QueryResolvers<ContextType>,
+  Subscription?: SubscriptionResolvers<ContextType>,
   User?: UserResolvers<ContextType>,
+  UserLike?: UserLikeResolvers<ContextType>,
 };
 
 

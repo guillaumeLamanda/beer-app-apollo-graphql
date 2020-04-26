@@ -15,6 +15,7 @@ const Navbar: FC<Props> = ({ userName, onAuthClick }) => (
   >
     <Heading size="small">Beer App</Heading>
     <Box direction="row" gap="small">
+      <AnchorLink color="text-strong" to="/" label="fil" />
       <AnchorLink color="text-strong" to="/beers" label="bières" />
       <AnchorLink color="text-strong" to="/users" label="utilisateurs" />
     </Box>

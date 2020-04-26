@@ -35,3 +35,19 @@ type Mutation {
   login(name: String!): User
   toogleBeerLike(beerId: ID!): User!
 }
+
+enum LikeAction {
+  like
+  dislike
+}
+
+type UserLike {
+  user: User!
+  beer: Beer!
+  action: LikeAction!
+}
+
+type Subscription {
+  userLoggedIn: User
+  userLikedABeer: UserLike
+}

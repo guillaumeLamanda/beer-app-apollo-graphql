@@ -35,6 +35,7 @@
     "apollo-datasource-rest": "^0.8.1",
     "apollo-server": "^2.12.0",
     "graphql": "^14.0.0",
+    "graphql-subscriptions": "^1.1.0",
     "jsonwebtoken": "^8.5.1",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^5.21.7",

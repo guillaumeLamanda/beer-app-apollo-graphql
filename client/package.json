@@ -17,6 +17,7 @@
     "apollo-client": "^2.6.8",
     "apollo-link-context": "^1.0.20",
     "apollo-link-http": "^1.5.17",
+    "apollo-link-ws": "^1.0.20",
     "graphql": "^15.0.0",
     "grommet": "^2.13.0",
     "grommet-icons": "^4.4.0",
@@ -29,6 +30,7 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
     "styled-components": "^5.1.0",
+    "subscriptions-transport-ws": "^0.9.16",
     "typescript": "~3.7.2"
   },
   "scripts": {

@@ -9,10 +9,20 @@ import { createHttpLink } from "apollo-link-http";
 import { setContext } from "apollo-link-context";
 import { ApolloClient, Resolvers } from "apollo-client";
 import { InMemoryCache, gql } from "apollo-boost";
+import { WebSocketLink } from "apollo-link-ws";
+import { split } from "apollo-link";
+import { getMainDefinition } from "apollo-utilities";
 import { meQuery, TMeData } from "./hooks";
 
 const httpLink = createHttpLink({
   uri: "http://localhost:5000",
+});
+
+const wsLink = new WebSocketLink({
+  uri: "ws://localhost:5000/graphql",
+  options: {
+    reconnect: true,
+  },
 });
 
 const authLink = setContext((operation, { headers }) => {
@@ -25,6 +35,18 @@ const authLink = setContext((operation, { headers }) => {
     },
   };
 });
+
+const link = split(
+  ({ query }) => {
+    const definition = getMainDefinition(query);
+    return (
+      definition.kind === "OperationDefinition" &&
+      definition.operation === "subscription"
+    );
+  },
+  wsLink,
+  authLink.concat(httpLink)
+);
 
 const cache = new InMemoryCache();
 
@@ -53,7 +75,7 @@ const typeDefs = gql`
 `;
 
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  link,
   resolvers,
   cache,
   typeDefs,

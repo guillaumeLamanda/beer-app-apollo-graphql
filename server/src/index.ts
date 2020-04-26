@@ -1,10 +1,13 @@
-import { ApolloServer, Config, AuthenticationError } from "apollo-server";
+import { ApolloServer } from "apollo-server";
 import { BeersAPI } from "./beers";
-import { User, Resolvers } from "@ba/schema";
+import { User, Resolvers, UserLike, LikeAction } from "@ba/schema";
 import schema from "@ba/schema/src/schema.graphql";
 import { UserDataSource } from "./users";
 import { Request } from "express";
 import { getUserFromRequest, generateToken } from "./utils/authentification";
+import { PubSub } from "graphql-subscriptions";
+
+const pubsub = new PubSub();
 
 export type Context = {
   user: Pick<User, "id"> | null;
@@ -41,13 +44,48 @@ const resolvers: Resolvers<Context> = {
       return userDs.update(user.id, { token });
     },
     login: async (_, { name }, { dataSources: { userDs } }) => {
-      const user =
-        (await userDs.findByName(name)) || (await userDs.create({ name }));
+      let user;
+      try {
+        user = await userDs.findByName(name);
+      } catch (error) {
+        user = await userDs.create({ name });
+      }
       const token = generateToken(user);
+      pubsub.publish("userLoggedIn", { userLoggedIn: { ...user, token } });
       return userDs.update(user.id, { token });
     },
-    toogleBeerLike: (_, { beerId }, { user, dataSources: { userDs } }) =>
-      userDs.toogleBeerLike(user.id, beerId),
+    toogleBeerLike: async (
+      _,
+      { beerId },
+      { user: authUser, dataSources: { userDs, beersApi } }
+    ) => {
+      const user = await userDs.toogleBeerLike(authUser.id, beerId);
+      const beer = await beersApi.getBeer(beerId);
+      const action = user.beers.some(({ id }) => id === beer.id)
+        ? LikeAction.Like
+        : LikeAction.Dislike;
+      const userLike: UserLike = {
+        user,
+        beer,
+        action,
+      };
+      pubsub.publish("userLikedABeer", { userLikedABeer: userLike });
+      return user;
+    },
+  },
+  Subscription: {
+    userLoggedIn: {
+      subscribe: () => pubsub.asyncIterator("userLoggedIn"),
+    },
+    userLikedABeer: {
+      subscribe: () => pubsub.asyncIterator("userLikedABeer"),
+    },
+  },
+  User: {
+    token: (user, args, { user: authUser }, info) =>
+      authUser?.id === user.id || info.path.prev?.key === "login"
+        ? user.token
+        : null,
   },
 };
 
@@ -61,6 +99,7 @@ const server = new ApolloServer({
   }),
 });
 
-server.listen(5000).then(({ url }) => {
+server.listen(5000).then(({ url, subscriptionsUrl }) => {
   console.log(`🚀 server listening at ${url}`);
+  console.log(`🚀 subscriptions listening at ${subscriptionsUrl}`);
 });
