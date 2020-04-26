@@ -29,7 +29,7 @@ const resolvers: Resolvers<Context> = {
     users: (_, __, { dataSources: { userDs } }) => userDs.find(),
     me: (_, __, { user, dataSources: { userDs } }) => {
       if (!user) {
-        throw new AuthenticationError("vous n'êtes pas authentifié");
+        return null;
       }
       return userDs.findById(user.id);
     },
@@ -41,7 +41,8 @@ const resolvers: Resolvers<Context> = {
       return userDs.update(user.id, { token });
     },
     login: async (_, { name }, { dataSources: { userDs } }) => {
-      const user = await userDs.findByName(name);
+      const user =
+        (await userDs.findByName(name)) || (await userDs.create({ name }));
       const token = generateToken(user);
       return userDs.update(user.id, { token });
     },

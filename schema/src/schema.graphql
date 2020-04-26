@@ -27,11 +27,11 @@ type User {
 type Query {
   users: [User!]!
   user(id: ID!): User
-  me: User!
+  me: User
 }
 
 type Mutation {
   register(name: String!): User!
-  login(name: String!): User!
+  login(name: String!): User
   toogleBeerLike(beerId: ID!): User!
 }

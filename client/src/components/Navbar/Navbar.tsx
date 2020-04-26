@@ -1,10 +1,11 @@
 import React, { FC } from "react";
-import { Nav, Heading, Box, Text } from "grommet";
+import { Nav, Heading, Box, Button } from "grommet";
 import { AnchorLink } from "../AnchorLink/AnchorLink";
+import { User } from "@ba/schema/src";
 
-type Props = {};
+type Props = { userName?: User["name"]; onAuthClick: () => void };
 
-const Navbar: FC<Props> = () => (
+const Navbar: FC<Props> = ({ userName, onAuthClick }) => (
   <Nav
     pad={{ horizontal: "small" }}
     background="brand"
@@ -18,7 +19,7 @@ const Navbar: FC<Props> = () => (
       <AnchorLink color="text-strong" to="/users" label="utilisateurs" />
     </Box>
     <Box>
-      <Text>User</Text>
+      <Button onClick={onAuthClick} label={userName ?? "Se connecter"} />
     </Box>
   </Nav>
 );

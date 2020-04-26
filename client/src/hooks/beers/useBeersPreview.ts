@@ -26,7 +26,6 @@ type TVariables = { page: number };
 
 export function useBeersPreview() {
   const { page, nextPage, previousPage } = useBeersPagination();
-  console.log(page);
   const { data, variables, fetchMore, ...rest } = useQuery<TData, TVariables>(
     query,
     {

@@ -1,6 +1,8 @@
 import { gql } from "apollo-boost";
 import { User } from "@ba/schema/src";
 import { useMutation } from "@apollo/react-hooks";
+import { useMe } from "./useMe";
+import { queryBeer } from "../beers/useBeer";
 
 const mutation = gql`
   mutation useBeerLike($beerId: ID!) {
@@ -21,13 +23,18 @@ type TVariables = {
 };
 
 export const useBeerLike = () => {
+  const { me } = useMe();
   const [likeBeerMutation, { data, ...rest }] = useMutation<TData, TVariables>(
     mutation
   );
 
   const likeBeer = async (beerId: string) => {
-    const res = await likeBeerMutation({ variables: { beerId } });
-    return res;
+    if (me) {
+      await likeBeerMutation({
+        variables: { beerId },
+        refetchQueries: [{ query: queryBeer, variables: { beerId } }],
+      });
+    }
   };
 
   return {

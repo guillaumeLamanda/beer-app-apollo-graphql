@@ -26,7 +26,7 @@ export type BeersInput = {
 export type Mutation = {
    __typename?: 'Mutation';
   register: User;
-  login: User;
+  login?: Maybe<User>;
   toogleBeerLike: User;
 };
 
@@ -49,7 +49,7 @@ export type Query = {
    __typename?: 'Query';
   beer: Beer;
   beers: Array<Beer>;
-  me: User;
+  me?: Maybe<User>;
   user?: Maybe<User>;
   users: Array<User>;
 };
@@ -186,14 +186,14 @@ export type BeerResolvers<ContextType = any, ParentType extends ResolversParentT
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   register?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationRegisterArgs, 'name'>>,
-  login?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationLoginArgs, 'name'>>,
+  login?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationLoginArgs, 'name'>>,
   toogleBeerLike?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationToogleBeerLikeArgs, 'beerId'>>,
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   beer?: Resolver<ResolversTypes['Beer'], ParentType, ContextType, RequireFields<QueryBeerArgs, 'id'>>,
   beers?: Resolver<Array<ResolversTypes['Beer']>, ParentType, ContextType, RequireFields<QueryBeersArgs, never>>,
-  me?: Resolver<ResolversTypes['User'], ParentType, ContextType>,
+  me?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserArgs, 'id'>>,
   users?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>,
 };
