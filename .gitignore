@@ -3,3 +3,4 @@
 
 .now
 .clever.json
+server/db.sqlite
