@@ -1,7 +1,7 @@
 import React from "react";
 import { BeersList, Pagination } from "../../components";
 import { useBeersPreview } from "../../hooks";
-import { Box } from "grommet";
+import { Box, Heading, Text, Anchor } from "grommet";
 
 export const BeersPage = () => {
   const {
@@ -18,6 +18,16 @@ export const BeersPage = () => {
   return (
     <>
       <Box fill>
+        <Heading>Liste des bières</Heading>
+        <Text>
+          Les bières sont agrégés depuis{" "}
+          <Anchor
+            href="https://punkapi.com/documentation/v2"
+            target="_blank"
+            rel="norefer noopener"
+            label="PunkAPI"
+          />{" "}
+        </Text>
         <BeersList beers={beers} />
       </Box>
       <Pagination page={page} onPrevious={previousPage} onNext={nextPage} />
