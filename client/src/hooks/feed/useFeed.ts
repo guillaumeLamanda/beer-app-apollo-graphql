@@ -54,8 +54,12 @@ const reducer: Reducer<State, Action> = (state = [], action) => {
 
 export const useFeed = () => {
   const [feed, dispatch] = useReducer(reducer, []);
-  const { data: loginData } = useSubscription<UserLoggedIn>(loginSub);
-  const { data: likeData } = useSubscription<UserLikedABeer>(likeSub);
+  const { data: loginData, error: loginError } = useSubscription<UserLoggedIn>(
+    loginSub
+  );
+  const { data: likeData, error: likeError } = useSubscription<UserLikedABeer>(
+    likeSub
+  );
 
   useEffect(() => {
     if (loginData?.userLoggedIn) {
@@ -72,5 +76,5 @@ export const useFeed = () => {
     }
   }, [likeData, loginData]);
 
-  return { feed };
+  return { feed, errors: { loginError, likeError } };
 };
