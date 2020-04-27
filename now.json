@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "server/dist/bundle.js",
+      "use": "@now/node"
+    },
+    {
+      "src": "client/build/**",
+      "use": "@now/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/graphql",
+      "dest": "/server/dist/bundle.js"
+    },
+    {
+      "src": "/",
+      "dest": "/client/build/index.html"
+    },
+    { "src": "^/static/(.*)", "dest": "/client/build/static/$1" },
+    { "src": "^/favicon.ico", "dest": "/client/build/favicon.ico" },
+    { "src": "^/manifest.json", "dest": "/client/build/manifest.json" },
+    { "src": "^/(.*)", "dest": "/client/build/index.html" }
+  ]
+}

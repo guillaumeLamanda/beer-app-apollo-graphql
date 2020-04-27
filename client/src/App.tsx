@@ -14,12 +14,16 @@ import { split } from "apollo-link";
 import { getMainDefinition } from "apollo-utilities";
 import { meQuery, TMeData } from "./hooks";
 
+const isProd = process.env.NODE_ENV === "production";
+const url = isProd ? "beer-app-mauve.now.sh" : "localhost:5000";
+const protocol = isProd ? "https" : "http";
 const httpLink = createHttpLink({
-  uri: "http://localhost:5000",
+  uri: `${protocol}://${url}${isProd ? "/graphql" : ""}`,
 });
 
+const wsProtocol = isProd ? "wss" : "ws";
 const wsLink = new WebSocketLink({
-  uri: "ws://localhost:5000/graphql",
+  uri: `${wsProtocol}://${url}${isProd ? "/graphql" : ""}`,
   options: {
     reconnect: true,
   },

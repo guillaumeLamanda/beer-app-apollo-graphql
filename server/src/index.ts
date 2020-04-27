@@ -97,6 +97,11 @@ const server = new ApolloServer({
     beersApi: new BeersAPI(),
     userDs: new UserDataSource(),
   }),
+  playground: true,
+  introspection: true,
+  subscriptions: {
+    path: "/",
+  },
 });
 
 server.listen(5000).then(({ url, subscriptionsUrl }) => {

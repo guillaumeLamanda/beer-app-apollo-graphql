@@ -5,7 +5,7 @@
   "main": "src/index.ts",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node src/index.ts",
+    "start": "node dist/bundle.js",
     "build": "webpack --mode=production",
     "build:watch": "webpack --watch --mode=development",
     "dev": "yarn build:watch & nodemon -w dist/ dist/bundle.js",

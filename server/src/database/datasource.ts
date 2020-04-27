@@ -10,7 +10,8 @@ if (!sequelize) {
   sequelize = new Sequelize({
     database: "db",
     dialect: "sqlite",
-    storage: "./db.sqlite",
+    storage:
+      process.env.NODE_ENV === "production" ? "/tmp/db.sqite" : "./db.sqlite",
     models: [UserModel, UserBeersModel],
   });
   sequelize.sync();
@@ -23,5 +24,7 @@ export class DbDatasource extends DataSource {
   async initialize(config: DataSourceConfig<Context>) {
     this.db = sequelize;
     this.context = config.context;
+    await this.db.sync();
+    console.log("db synced");
   }
 }
