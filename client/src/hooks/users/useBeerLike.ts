@@ -6,6 +6,7 @@ import {
   BeerLikeMutation,
   BeerLikeMutationVariables,
 } from "./__generated__/BeerLikeMutation";
+import { useHistory } from "react-router-dom";
 
 const mutation = gql`
   mutation BeerLikeMutation($beerId: ID!) {
@@ -20,18 +21,20 @@ const mutation = gql`
 
 export const useBeerLike = () => {
   const { me } = useMe();
+  const { push } = useHistory();
   const [likeBeerMutation, { data, ...rest }] = useMutation<
     BeerLikeMutation,
     BeerLikeMutationVariables
   >(mutation);
 
   const likeBeer = async (beerId: string) => {
-    if (me) {
-      await likeBeerMutation({
-        variables: { beerId },
-        refetchQueries: [{ query: queryBeer, variables: { beerId } }],
-      });
+    if (!me) {
+      return push("/me"); // redirect to auth
     }
+    await likeBeerMutation({
+      variables: { beerId },
+      refetchQueries: [{ query: queryBeer, variables: { beerId } }],
+    });
   };
 
   return {
