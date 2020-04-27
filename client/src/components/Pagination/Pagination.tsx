@@ -20,7 +20,7 @@ const BeersPagination: FC<BeersPaginationProps> = ({
     align="center"
     margin={{ horizontal: "auto" }}
   >
-    <Button icon={<Previous />} onClick={onPrevious} />
+    <Button disabled={page === 1} icon={<Previous />} onClick={onPrevious} />
     <Text>{page}</Text>
     <Button icon={<Next />} onClick={onNext} />
   </Box>
