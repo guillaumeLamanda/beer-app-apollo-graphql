@@ -14,6 +14,10 @@ export interface BeersPreviewQuery_beers {
 }
 
 export interface BeersPreviewQuery {
+  /**
+   * Request a beers collection.
+   * You need to specify the page and the pageSize of `BeersInput`
+   */
   beers: BeersPreviewQuery_beers[];
 }
 
