@@ -1,7 +1,6 @@
 import jwt from "jsonwebtoken";
-import { Context } from "..";
 import { Request } from "express";
-import { User } from "@ba/schema";
+import { Context } from "../context";
 
 const secret = "anAwesomeSecret";
 

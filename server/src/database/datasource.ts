@@ -1,9 +1,9 @@
 import { DataSource, DataSourceConfig } from "apollo-datasource";
 import { Sequelize } from "sequelize-typescript";
-import { Context } from "..";
 import { __Directive } from "graphql";
 import { UserModel } from "./user.model";
 import { UserBeersModel } from "./beer.model";
+import { Context } from "../context";
 
 let sequelize: Sequelize;
 (async () => {
