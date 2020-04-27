@@ -5,6 +5,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Install
+        uses: CultureHQ/actions-yarn@master
+        with:
+          args: install
+      - name: Build
+        uses: CultureHQ/actions-yarn@master
+        with:
+          args: build
       - uses: amondnet/now-deployment@v2
         with:
           zeit-token: ${{ secrets.ZEIT_TOKEN }}
