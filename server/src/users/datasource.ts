@@ -10,8 +10,6 @@ export class UserDataSource extends DbDatasource {
       beers: await this.context.dataSources.beersApi.getBeersByIds(
         (user.beers || []).map(({ beerId }) => beerId)
       ),
-      followings: [],
-      followers: [],
     };
   }
 

@@ -10,11 +10,23 @@ export type Scalars = {
   Float: number;
 };
 
+/**
+ * The `Beer` type reprensent a beer object,
+ * agregated from [punk api](https://punkapi.com/documentation/v2)
+ */
 export type Beer = {
    __typename?: 'Beer';
   id: Scalars['ID'];
   name: Scalars['String'];
+  /**
+   * Small Description of the beer
+   * **small** mean it is a short text
+   */
   tagline: Scalars['String'];
+  /**
+   * Complete description of the beer.
+   * If you want a small text, use `tagline`
+   */
   description: Scalars['String'];
 };
 
@@ -52,11 +64,16 @@ export type MutationToogleBeerLikeArgs = {
 
 export type Query = {
    __typename?: 'Query';
+  /** Request a `Beer` by an ID */
   beer: Beer;
+  /**
+   * Request a beers collection.
+   * You need to specify the page and the pageSize of `BeersInput`
+   */
   beers: Array<Beer>;
-  me?: Maybe<User>;
-  user?: Maybe<User>;
   users: Array<User>;
+  user?: Maybe<User>;
+  me?: Maybe<User>;
 };
 
 
@@ -66,7 +83,7 @@ export type QueryBeerArgs = {
 
 
 export type QueryBeersArgs = {
-  input?: Maybe<BeersInput>;
+  input: BeersInput;
 };
 
 
@@ -86,8 +103,6 @@ export type User = {
   name: Scalars['String'];
   token?: Maybe<Scalars['String']>;
   beers: Array<Beer>;
-  followings: Array<User>;
-  followers: Array<User>;
 };
 
 export type UserLike = {
@@ -216,10 +231,10 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   beer?: Resolver<ResolversTypes['Beer'], ParentType, ContextType, RequireFields<QueryBeerArgs, 'id'>>,
-  beers?: Resolver<Array<ResolversTypes['Beer']>, ParentType, ContextType, RequireFields<QueryBeersArgs, never>>,
-  me?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
-  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserArgs, 'id'>>,
+  beers?: Resolver<Array<ResolversTypes['Beer']>, ParentType, ContextType, RequireFields<QueryBeersArgs, 'input'>>,
   users?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>,
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserArgs, 'id'>>,
+  me?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
 };
 
 export type SubscriptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = {
@@ -232,8 +247,6 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   token?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   beers?: Resolver<Array<ResolversTypes['Beer']>, ParentType, ContextType>,
-  followings?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>,
-  followers?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 

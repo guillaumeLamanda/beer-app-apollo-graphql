@@ -15,6 +15,7 @@
     "server:build": "yarn workspace @ba/server run build",
     "server:dev": "yarn workspace @ba/server run dev",
     "server:generate": "yarn workspace @ba/server run generate",
+    "schema:dev": "yarn workspace @ba/schema run generate -w",
     "schema:generate": "yarn workspace @ba/schema run generate",
     "build": "yarn server:build",
     "start": "yarn server:start"

@@ -17,7 +17,7 @@
         "fields": [
           {
             "name": "beer",
-            "description": null,
+            "description": "Request a `Beer` by an ID",
             "args": [
               {
                 "name": "id",
@@ -48,15 +48,19 @@
           },
           {
             "name": "beers",
-            "description": null,
+            "description": "Request a beers collection.\nYou need to specify the page and the pageSize of `BeersInput`",
             "args": [
               {
                 "name": "input",
                 "description": null,
                 "type": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "BeersInput",
-                  "ofType": null
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "BeersInput",
+                    "ofType": null
+                  }
                 },
                 "defaultValue": null
               }
@@ -82,13 +86,25 @@
             "deprecationReason": null
           },
           {
-            "name": "me",
+            "name": "users",
             "description": null,
             "args": [],
             "type": {
-              "kind": "OBJECT",
-              "name": "User",
-              "ofType": null
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "User",
+                    "ofType": null
+                  }
+                }
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -121,25 +137,13 @@
             "deprecationReason": null
           },
           {
-            "name": "users",
+            "name": "me",
             "description": null,
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "OBJECT",
-                    "name": "User",
-                    "ofType": null
-                  }
-                }
-              }
+              "kind": "OBJECT",
+              "name": "User",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -163,7 +167,7 @@
       {
         "kind": "OBJECT",
         "name": "Beer",
-        "description": null,
+        "description": "The `Beer` type reprensent a beer object,\nagregated from [punk api](https://punkapi.com/documentation/v2)",
         "fields": [
           {
             "name": "id",
@@ -199,7 +203,7 @@
           },
           {
             "name": "tagline",
-            "description": null,
+            "description": "Small Description of the beer\n**small** mean it is a short text",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -215,7 +219,7 @@
           },
           {
             "name": "description",
-            "description": null,
+            "description": "Complete description of the beer.\nIf you want a small text, use `tagline`",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -359,54 +363,6 @@
                   "ofType": {
                     "kind": "OBJECT",
                     "name": "Beer",
-                    "ofType": null
-                  }
-                }
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "followings",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "OBJECT",
-                    "name": "User",
-                    "ofType": null
-                  }
-                }
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "followers",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "OBJECT",
-                    "name": "User",
                     "ofType": null
                   }
                 }
@@ -1447,6 +1403,26 @@
     ],
     "directives": [
       {
+        "name": "deprecated",
+        "description": null,
+        "locations": [
+          "FIELD_DEFINITION",
+          "ENUM_VALUE"
+        ],
+        "args": [
+          {
+            "name": "reason",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": "\"No longer supported\""
+          }
+        ]
+      },
+      {
         "name": "skip",
         "description": "Directs the executor to skip this field or fragment when the `if` argument is true.",
         "locations": [
@@ -1493,26 +1469,6 @@
               }
             },
             "defaultValue": null
-          }
-        ]
-      },
-      {
-        "name": "deprecated",
-        "description": "Marks an element of a GraphQL schema as no longer supported.",
-        "locations": [
-          "FIELD_DEFINITION",
-          "ENUM_VALUE"
-        ],
-        "args": [
-          {
-            "name": "reason",
-            "description": "Explains why this element was deprecated, usually also including a suggestion for how to access supported similar data. Formatted using the Markdown syntax (as specified by [CommonMark](https://commonmark.org/).",
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": "\"No longer supported\""
           }
         ]
       }

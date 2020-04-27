@@ -1,7 +1,23 @@
+directive @deprecated(
+  reason: String = "No longer supported"
+) on FIELD_DEFINITION | ENUM_VALUE
+
+"""
+The `Beer` type reprensent a beer object,
+agregated from [punk api](https://punkapi.com/documentation/v2)
+"""
 type Beer {
   id: ID!
   name: String!
+  """
+  Small Description of the beer
+  **small** mean it is a short text
+  """
   tagline: String!
+  """
+  Complete description of the beer.
+  If you want a small text, use `tagline`
+  """
   description: String!
 }
 
@@ -10,21 +26,23 @@ input BeersInput {
   pageSize: Int!
 }
 
-extend type Query {
-  beer(id: ID!): Beer!
-  beers(input: BeersInput): [Beer!]!
-}
-
 type User {
   id: ID!
   name: String!
   token: String
   beers: [Beer!]!
-  followings: [User!]!
-  followers: [User!]!
 }
 
 type Query {
+  """
+  Request a `Beer` by an ID
+  """
+  beer(id: ID!): Beer!
+  """
+  Request a beers collection.
+  You need to specify the page and the pageSize of `BeersInput`
+  """
+  beers(input: BeersInput!): [Beer!]!
   users: [User!]!
   user(id: ID!): User
   me: User
