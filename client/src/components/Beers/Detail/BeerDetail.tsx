@@ -2,14 +2,12 @@ import React, { FC } from "react";
 import { Beer } from "@ba/schema";
 import { Heading, Paragraph, Box } from "grommet";
 
-type Props = {
-  beer: Beer;
-};
+type Props = Pick<Beer, "name" | "description">;
 
-const BeerDetail: FC<Props> = ({ beer }) => (
+const BeerDetail: FC<Props> = ({ name, description }) => (
   <Box fill align="center">
-    <Heading>{beer.name}</Heading>
-    <Paragraph>{beer.description}</Paragraph>
+    <Heading>{name}</Heading>
+    <Paragraph>{description}</Paragraph>
   </Box>
 );
 

@@ -8,8 +8,9 @@
     "server"
   ],
   "scripts": {
-    "client:start": "yarn workspace @ba/client run start",
+    "client:dev": "yarn workspace @ba/client run dev",
     "client:build": "yarn workspace @ba/client run build",
+    "client:start": "yarn workspace @ba/client run start",
     "server:start": "yarn workspace @ba/server run start",
     "server:build": "yarn workspace @ba/server run build",
     "server:dev": "yarn workspace @ba/server run dev",

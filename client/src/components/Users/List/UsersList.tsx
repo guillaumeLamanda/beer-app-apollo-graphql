@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { Box, Text, Button } from "grommet";
-import { User } from "@ba/schema/src";
+import { User, Beer } from "@ba/schema/src";
 
 const BeersIndicator: FC<{ nb: number }> = ({ nb }) =>
   !!nb ? (
@@ -10,7 +10,7 @@ const BeersIndicator: FC<{ nb: number }> = ({ nb }) =>
   ) : null;
 
 type Props = {
-  users: Array<Pick<User, "id" | "name" | "beers">>;
+  users: Array<Pick<User, "id" | "name"> & { beers: Pick<Beer, "id">[] }>;
   onUserClick: (id: string) => void;
 };
 

@@ -3,11 +3,11 @@ import { Beer } from "@ba/schema";
 import { Box } from "grommet";
 import { AnchorLink } from "../../AnchorLink/AnchorLink";
 
-type Props = {
+export type BeersListProps = {
   beers: Array<Pick<Beer, "id" | "name">>;
 };
 
-const BeersList: FC<Props> = ({ beers }) =>
+export const BeersList: FC<BeersListProps> = ({ beers }) =>
   !!beers.length ? (
     <Box as="ul">
       {beers.map(({ id, name }) => (
@@ -19,5 +19,3 @@ const BeersList: FC<Props> = ({ beers }) =>
   ) : (
     <p>Aucunes bières à montrer</p>
   );
-
-export default BeersList;

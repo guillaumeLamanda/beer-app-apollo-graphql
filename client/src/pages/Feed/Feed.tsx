@@ -2,11 +2,8 @@ import React, { FC } from "react";
 import { useFeed } from "../../hooks";
 import { Heading, Text, Box } from "grommet";
 import { User } from "@ba/schema/src";
-
-enum LikeAction {
-  Like = "like",
-  Dislike = "dislike",
-}
+import { UserLoggedIn_userLoggedIn } from "../../hooks/feed/__generated__/UserLoggedIn";
+import { LikeAction } from "../../globalTypes";
 
 const LoggedInText: FC<Pick<User, "name">> = ({ name }) => (
   <Text>{`${name} vient d'arriver ! 🚀`}</Text>
@@ -14,9 +11,9 @@ const LoggedInText: FC<Pick<User, "name">> = ({ name }) => (
 
 const likeActionTrad = (action: LikeAction) => {
   switch (action) {
-    case LikeAction.Like:
+    case LikeAction.like:
       return "aime";
-    case LikeAction.Dislike:
+    case LikeAction.dislike:
       return "rejete cruellement";
     default:
       return "fait des trucs chelous";
@@ -46,14 +43,17 @@ export const FeedPage: FC = () => {
         {feed.map((item) => {
           if ("userLoggedIn" in item)
             return (
-              <LoggedInText key={item.userLoggedIn.id} {...item.userLoggedIn} />
+              <LoggedInText
+                key={item.userLoggedIn?.id}
+                {...(item.userLoggedIn as UserLoggedIn_userLoggedIn)}
+              />
             );
           if ("userLikedABeer" in item) {
             return (
               <UserLikeText
-                username={item.userLikedABeer.user.name}
-                beername={item.userLikedABeer.beer.name}
-                action={item.userLikedABeer.action}
+                username={item.userLikedABeer!.user.name}
+                beername={item.userLikedABeer!.beer.name}
+                action={item.userLikedABeer!.action}
               />
             );
           }

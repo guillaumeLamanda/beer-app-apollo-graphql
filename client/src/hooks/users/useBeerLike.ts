@@ -1,11 +1,14 @@
 import { gql } from "apollo-boost";
-import { User } from "@ba/schema/src";
 import { useMutation } from "@apollo/react-hooks";
 import { useMe } from "./useMe";
 import { queryBeer } from "../beers/useBeer";
+import {
+  BeerLikeMutation,
+  BeerLikeMutationVariables,
+} from "./__generated__/BeerLikeMutation";
 
 const mutation = gql`
-  mutation useBeerLike($beerId: ID!) {
+  mutation BeerLikeMutation($beerId: ID!) {
     toogleBeerLike(beerId: $beerId) {
       id
       beers {
@@ -15,18 +18,12 @@ const mutation = gql`
   }
 `;
 
-type TData = {
-  toogleBeerLike: User;
-};
-type TVariables = {
-  beerId: string;
-};
-
 export const useBeerLike = () => {
   const { me } = useMe();
-  const [likeBeerMutation, { data, ...rest }] = useMutation<TData, TVariables>(
-    mutation
-  );
+  const [likeBeerMutation, { data, ...rest }] = useMutation<
+    BeerLikeMutation,
+    BeerLikeMutationVariables
+  >(mutation);
 
   const likeBeer = async (beerId: string) => {
     if (me) {

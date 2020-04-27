@@ -1,10 +1,10 @@
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 import { useMemo } from "react";
-import { User } from "@ba/schema/src";
+import { UsersPreviewQuery } from "./__generated__/UsersPreviewQuery";
 
 const query = gql`
-  query useUsersPreview {
+  query UsersPreviewQuery {
     users {
       id
       name
@@ -16,12 +16,8 @@ const query = gql`
   }
 `;
 
-type TData = {
-  users: Array<Pick<User, "id" | "name" | "beers">>;
-};
-
 export const useUsersPreview = () => {
-  const { data, ...rest } = useQuery<TData>(query);
+  const { data, ...rest } = useQuery<UsersPreviewQuery>(query);
 
   const users = useMemo(() => data?.users || [], [data]);
 

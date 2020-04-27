@@ -15,7 +15,7 @@ export const BeerPage: FC = () => {
   return (
     <>
       <BeerLikeButton liked={beer.isLiked} onClick={() => likeBeer(beerId)} />
-      <BeerDetail beer={beer} />
+      <BeerDetail {...beer} />
     </>
   );
 };

@@ -1,11 +1,11 @@
 import { gql } from "apollo-boost";
-import { User } from "@ba/schema/src";
 import { useQuery } from "@apollo/react-hooks";
 import { useMemo } from "react";
 import { BeerPreviewFragment } from "../beers";
+import { MeQuery } from "./__generated__/MeQuery";
 
 export const meQuery = gql`
-  query useMe {
+  query MeQuery {
     me {
       id
       name
@@ -18,10 +18,8 @@ export const meQuery = gql`
   ${BeerPreviewFragment}
 `;
 
-export type TMeData = { me: User };
-
 export const useMe = () => {
-  const { data, ...rest } = useQuery<TMeData>(meQuery);
+  const { data, ...rest } = useQuery<MeQuery>(meQuery);
   const me = useMemo(() => data?.me, [data]);
 
   return {

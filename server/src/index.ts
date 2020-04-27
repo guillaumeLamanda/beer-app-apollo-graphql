@@ -102,6 +102,9 @@ const server = new ApolloServer({
   subscriptions: {
     path: "/",
   },
+  engine: {
+    apiKey: "service:beer-app:9InEDVu61S_LUla6cDpWWw",
+  },
 });
 
 server.listen(5000).then(({ url, subscriptionsUrl }) => {

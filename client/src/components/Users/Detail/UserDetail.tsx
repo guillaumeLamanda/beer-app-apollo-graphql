@@ -1,9 +1,11 @@
 import React, { FC } from "react";
 import { User } from "@ba/schema/src";
 import { Heading } from "grommet";
-import { BeersList } from "../../Beers";
+import { BeersList, BeersListProps } from "../../Beers";
 
-const UserDetail: FC<User> = ({ name, beers }) => (
+type Props = Pick<User, "name"> & BeersListProps;
+
+const UserDetail: FC<Props> = ({ name, beers }) => (
   <>
     <Heading>{name}</Heading>
     <BeersList beers={beers} />

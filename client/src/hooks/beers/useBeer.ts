@@ -1,10 +1,10 @@
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import { useMemo } from "react";
-import { Beer } from "@ba/schema/src";
+import { BeerQuery, BeerQueryVariables } from "./__generated__/BeerQuery";
 
 export const queryBeer = gql`
-  query useBeer($beerId: ID!) {
+  query BeerQuery($beerId: ID!) {
     beer(id: $beerId) {
       id
       name
@@ -15,12 +15,8 @@ export const queryBeer = gql`
   }
 `;
 
-type LocalBeer = Beer & { isLiked: boolean };
-type TData = { beer: LocalBeer };
-type TVariables = { beerId: string };
-
 export const useBeer = (beerId: string) => {
-  const { data, ...rest } = useQuery<TData, TVariables>(queryBeer, {
+  const { data, ...rest } = useQuery<BeerQuery, BeerQueryVariables>(queryBeer, {
     variables: {
       beerId,
     },

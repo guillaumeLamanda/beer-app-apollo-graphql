@@ -1,10 +1,11 @@
 import { gql } from "apollo-boost";
 import { useSubscription } from "@apollo/react-hooks";
-import { User, UserLike } from "@ba/schema/src";
 import { useEffect, Reducer, useReducer } from "react";
+import { UserLoggedIn } from "./__generated__/UserLoggedIn";
+import { UserLikedABeer } from "./__generated__/UserLikedABeer";
 
 const loginSub = gql`
-  subscription userLoggedIn {
+  subscription UserLoggedIn {
     userLoggedIn {
       id
       name
@@ -12,10 +13,8 @@ const loginSub = gql`
   }
 `;
 
-type TLoginSubData = { userLoggedIn: Pick<User, "id" | "name"> };
-
 const likeSub = gql`
-  subscription userLikedABeer {
+  subscription UserLikedABeer {
     userLikedABeer {
       action
       user {
@@ -30,8 +29,6 @@ const likeSub = gql`
   }
 `;
 
-type TLikeSubData = { userLikedABeer: UserLike };
-
 enum ActionTypes {
   ADD_LOGGED_IN,
   ADD_USER_LIKE,
@@ -39,10 +36,10 @@ enum ActionTypes {
 
 type Action = {
   type: ActionTypes;
-  data: TLoginSubData | TLikeSubData;
+  data: UserLoggedIn | UserLikedABeer;
 };
 
-type State = Array<TLoginSubData | TLikeSubData>;
+type State = Array<UserLoggedIn | UserLikedABeer>;
 
 const reducer: Reducer<State, Action> = (state = [], action) => {
   switch (action.type) {
@@ -57,8 +54,8 @@ const reducer: Reducer<State, Action> = (state = [], action) => {
 
 export const useFeed = () => {
   const [feed, dispatch] = useReducer(reducer, []);
-  const { data: loginData } = useSubscription<TLoginSubData>(loginSub);
-  const { data: likeData } = useSubscription<TLikeSubData>(likeSub);
+  const { data: loginData } = useSubscription<UserLoggedIn>(loginSub);
+  const { data: likeData } = useSubscription<UserLikedABeer>(likeSub);
 
   useEffect(() => {
     if (loginData?.userLoggedIn) {

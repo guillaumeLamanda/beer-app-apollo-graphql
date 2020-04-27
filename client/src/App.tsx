@@ -12,7 +12,8 @@ import { InMemoryCache, gql } from "apollo-boost";
 import { WebSocketLink } from "apollo-link-ws";
 import { split } from "apollo-link";
 import { getMainDefinition } from "apollo-utilities";
-import { meQuery, TMeData } from "./hooks";
+import { meQuery } from "./hooks";
+import { MeQuery } from "./hooks/users/__generated__/MeQuery";
 
 const isProd = process.env.NODE_ENV === "production";
 const url = isProd ? "beer-app-mauve.now.sh" : "localhost:5000";
@@ -31,6 +32,7 @@ const wsLink = new WebSocketLink({
 
 const authLink = setContext((operation, { headers }) => {
   const token = localStorage.getItem("token");
+  console.log(token);
 
   return {
     headers: {
@@ -63,7 +65,7 @@ cache.writeData({
 const resolvers: Resolvers = {
   Beer: {
     isLiked: (beer, args, { cache }: { cache: InMemoryCache }) => {
-      const data = cache.readQuery<TMeData>({ query: meQuery });
+      const data = cache.readQuery<MeQuery>({ query: meQuery });
       if (data?.me?.beers.some(({ id }) => id === beer.id)) {
         return true;
       }
