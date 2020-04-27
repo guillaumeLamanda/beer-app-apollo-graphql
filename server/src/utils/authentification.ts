@@ -14,5 +14,4 @@ export const getUserFromRequest = (req: Request): Context["user"] => {
   }
 };
 
-export const generateToken = (user: User): string =>
-  jwt.sign({ id: user.id }, secret);
+export const generateToken = (id: string): string => jwt.sign({ id }, secret);

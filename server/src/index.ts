@@ -1,6 +1,6 @@
 import { ApolloServer } from "apollo-server";
 import { BeersAPI } from "./beers";
-import { User, Resolvers, UserLike, LikeAction } from "@ba/schema";
+import { User, Resolvers, LikeAction, ResolversTypes } from "@ba/schema";
 import schema from "@ba/schema/src/schema.graphql";
 import { UserDataSource } from "./users";
 import { Request } from "express";
@@ -40,7 +40,7 @@ const resolvers: Resolvers<Context> = {
   Mutation: {
     register: async (_, args, { dataSources: { userDs } }) => {
       const user = await userDs.create(args);
-      const token = generateToken(user);
+      const token = generateToken(user.id);
       return userDs.update(user.id, { token });
     },
     login: async (_, { name }, { dataSources: { userDs } }) => {
@@ -64,7 +64,7 @@ const resolvers: Resolvers<Context> = {
       const action = user.beers.some(({ id }) => id === beer.id)
         ? LikeAction.Like
         : LikeAction.Dislike;
-      const userLike: UserLike = {
+      const userLike: ResolversTypes["UserLike"] = {
         user,
         beer,
         action,
@@ -86,6 +86,8 @@ const resolvers: Resolvers<Context> = {
       authUser?.id === user.id || info.path.prev?.key === "login"
         ? user.token
         : null,
+    beers: (user, args, { dataSources: { beersApi } }) =>
+      beersApi.getBeersByIds(user.beers.map(({ beerId }) => beerId)),
   },
 };
 

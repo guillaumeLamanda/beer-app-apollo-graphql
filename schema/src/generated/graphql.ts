@@ -1,5 +1,7 @@
 import { GraphQLResolveInfo } from 'graphql';
+import { UserModel } from '@ba/server/src/database/user.model';
 export type Maybe<T> = T | null;
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -191,10 +193,10 @@ export type ResolversTypes = {
   String: ResolverTypeWrapper<Scalars['String']>,
   BeersInput: BeersInput,
   Int: ResolverTypeWrapper<Scalars['Int']>,
-  User: ResolverTypeWrapper<User>,
+  User: ResolverTypeWrapper<UserModel>,
   Mutation: ResolverTypeWrapper<{}>,
   Subscription: ResolverTypeWrapper<{}>,
-  UserLike: ResolverTypeWrapper<UserLike>,
+  UserLike: ResolverTypeWrapper<Omit<UserLike, 'user'> & { user: ResolversTypes['User'] }>,
   LikeAction: LikeAction,
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
 };
@@ -207,10 +209,10 @@ export type ResolversParentTypes = {
   String: Scalars['String'],
   BeersInput: BeersInput,
   Int: Scalars['Int'],
-  User: User,
+  User: UserModel,
   Mutation: {},
   Subscription: {},
-  UserLike: UserLike,
+  UserLike: Omit<UserLike, 'user'> & { user: ResolversParentTypes['User'] },
   LikeAction: LikeAction,
   Boolean: Scalars['Boolean'],
 };

@@ -4,49 +4,32 @@ import { UserModel } from "../database/user.model";
 import { UserBeersModel } from "../database/beer.model";
 
 export class UserDataSource extends DbDatasource {
-  async resolveUserBeers(user: UserModel): Promise<User> {
-    return {
-      ...(user.get() as UserModel),
-      beers: await this.context.dataSources.beersApi.getBeersByIds(
-        (user.beers || []).map(({ beerId }) => beerId)
-      ),
-    };
+  async findById(id: string) {
+    return UserModel.findByPk(id, { include: [{ all: true }] });
   }
 
-  async findById(id: string): Promise<User> {
-    return this.resolveUserBeers(
-      await UserModel.findByPk(id, { include: [{ all: true }] })
-    );
+  async findByName(name: string) {
+    return UserModel.findOne({ where: { name } });
   }
 
-  async findByName(name: string): Promise<User> {
-    const user = await UserModel.findOne({ where: { name } });
-    return this.resolveUserBeers(user);
+  async find() {
+    return UserModel.findAll({ include: [UserBeersModel] });
   }
 
-  async find(): Promise<User[]> {
-    const users = await UserModel.findAll({ include: [UserBeersModel] });
-    return Promise.all(users.map(async (user) => this.resolveUserBeers(user)));
+  async create({ name }: { name: string }) {
+    return UserModel.create({ name }, { include: [{ all: true }] });
   }
 
-  async create({ name }: { name: string }): Promise<User> {
-    const user = await UserModel.create({ name }, { include: [{ all: true }] });
-    console.log(user.token);
-    return this.resolveUserBeers(user);
-  }
-
-  async update(id: string, data: Partial<User>): Promise<User> {
+  async update(id: string, data: Partial<User>) {
     const user = await UserModel.findByPk(id, { include: [{ all: true }] });
-    await user.update({
+    return user.update({
       ...data,
       ...(data.beers && data.beers.map(({ id }) => id)),
     });
-    return this.resolveUserBeers(user);
   }
 
-  async toogleBeerLike(userId: string, beerId: string): Promise<User> {
+  async toogleBeerLike(userId: string, beerId: string) {
     const user = await UserModel.findByPk(userId, { include: [{ all: true }] });
-    console.log(user.beers);
     if (
       user.beers.some(({ beerId: storedBeerId }) => storedBeerId === beerId)
     ) {
@@ -66,8 +49,6 @@ export class UserDataSource extends DbDatasource {
       });
       user.set("beers", [...user.beers, beer]);
     }
-    await user.save();
-
-    return this.resolveUserBeers(user);
+    return user.save();
   }
 }

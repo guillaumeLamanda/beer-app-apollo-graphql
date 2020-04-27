@@ -6,16 +6,18 @@ import { UserModel } from "./user.model";
 import { UserBeersModel } from "./beer.model";
 
 let sequelize: Sequelize;
-if (!sequelize) {
-  sequelize = new Sequelize({
-    database: "db",
-    dialect: "sqlite",
-    storage:
-      process.env.NODE_ENV === "production" ? "/tmp/db.sqite" : "./db.sqlite",
-    models: [UserModel, UserBeersModel],
-  });
-  sequelize.sync();
-}
+(async () => {
+  if (!sequelize) {
+    sequelize = new Sequelize({
+      database: "db",
+      dialect: "sqlite",
+      storage:
+        process.env.NODE_ENV === "production" ? "/tmp/db.sqite" : "./db.sqlite",
+      models: [UserModel, UserBeersModel],
+    });
+    await sequelize.sync();
+  }
+})();
 
 export class DbDatasource extends DataSource {
   context: Context;
@@ -24,7 +26,5 @@ export class DbDatasource extends DataSource {
   async initialize(config: DataSourceConfig<Context>) {
     this.db = sequelize;
     this.context = config.context;
-    await this.db.sync();
-    console.log("db synced");
   }
 }
