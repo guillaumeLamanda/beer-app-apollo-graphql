@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { Beer } from "@ba/schema";
-import { Box } from "grommet";
+import { Box, InfiniteScroll } from "grommet";
 import { AnchorLink } from "../../AnchorLink/AnchorLink";
 
 export type BeersListProps = {
@@ -9,13 +9,13 @@ export type BeersListProps = {
 
 export const BeersList: FC<BeersListProps> = ({ beers }) =>
   !!beers.length ? (
-    <Box as="ul">
-      {beers.map(({ id, name }) => (
+    <InfiniteScroll items={beers}>
+      {({ id, name }: Beer) => (
         <Box key={id} pad="medium">
           <AnchorLink to={`/beers/${id}`} label={name} />
         </Box>
-      ))}
-    </Box>
+      )}
+    </InfiniteScroll>
   ) : (
     <p>Aucunes bières à montrer</p>
   );

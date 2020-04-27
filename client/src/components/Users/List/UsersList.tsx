@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Box, Text, Button } from "grommet";
+import { Box, Text, Button, InfiniteScroll } from "grommet";
 import { User, Beer } from "@ba/schema/src";
 
 const BeersIndicator: FC<{ nb: number }> = ({ nb }) =>
@@ -9,22 +9,23 @@ const BeersIndicator: FC<{ nb: number }> = ({ nb }) =>
     }`}</Text>
   ) : null;
 
+type UserData = Pick<User, "id" | "name"> & { beers: Pick<Beer, "id">[] };
 type Props = {
-  users: Array<Pick<User, "id" | "name"> & { beers: Pick<Beer, "id">[] }>;
+  users: Array<UserData>;
   onUserClick: (id: string) => void;
 };
 
 const UsersList: FC<Props> = ({ users, onUserClick }) => (
-  <Box as="ul" gap="small">
-    {users.map(({ id, name, beers }) => (
-      <Button onClick={() => onUserClick(id)} as="li" key={id} hoverIndicator>
+  <InfiniteScroll items={users}>
+    {({ id, name, beers }: UserData) => (
+      <Button onClick={() => onUserClick(id)} key={id} hoverIndicator>
         <Box gap="xsmall" pad="small">
           <Text>{name}</Text>
           <BeersIndicator nb={beers.length} />
         </Box>
       </Button>
-    ))}
-  </Box>
+    )}
+  </InfiniteScroll>
 );
 
 export default UsersList;
