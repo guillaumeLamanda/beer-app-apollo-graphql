@@ -7,6 +7,14 @@
     "schema",
     "server"
   ],
+  "keywords": [
+    "workspaces",
+    "graphql",
+    "apollo",
+    "beers",
+    "typescript",
+    "react"
+  ],
   "scripts": {
     "client:dev": "yarn workspace @ba/client run dev",
     "client:build": "yarn workspace @ba/client run build",
