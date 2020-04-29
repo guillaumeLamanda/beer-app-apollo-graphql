@@ -21,6 +21,9 @@ type Beer {
   description: String!
 }
 
+"""
+Beer Input to require beers
+"""
 input BeersInput {
   page: Int!
   pageSize: Int!
@@ -43,14 +46,35 @@ type Query {
   You need to specify the page and the pageSize of `BeersInput`
   """
   beers(input: BeersInput!): [Beer!]!
+  """
+  Request users
+  """
   users: [User!]!
+  """
+  Request a user by id
+  """
   user(id: ID!): User
+  """
+  Request the current authentified user.
+  Return `null` if the user is not authentified
+  """
   me: User
 }
 
 type Mutation {
-  register(name: String!): User!
-  login(name: String!): User
+  """
+  Register mutation
+  """
+  register(name: String!): User! @deprecated
+  """
+  Login mutation.
+  If the user does not exist, the user is created
+  """
+  login(name: String!): User!
+  """
+  Add a beer in favorites.
+  The request need to be authenticated to call this mutation.
+  """
   toogleBeerLike(beerId: ID!): User!
 }
 
@@ -66,6 +90,16 @@ type UserLike {
 }
 
 type Subscription {
-  userLoggedIn: User
-  userLikedABeer: UserLike
+  """
+  Suscribe to users connections to the app.
+  Deprecated because the service is deployed on serverless,
+  and it does not handle WebSockets.
+  """
+  userLoggedIn: User! @deprecated
+  """
+  Suscribe to `like` events.
+  Deprecated because the service is deployed on serverless,
+  and it does not handle WebSockets.
+  """
+  userLikedABeer: UserLike! @deprecated
 }

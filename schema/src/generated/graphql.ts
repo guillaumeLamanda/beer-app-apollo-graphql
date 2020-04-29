@@ -32,6 +32,7 @@ export type Beer = {
   description: Scalars['String'];
 };
 
+/** Beer Input to require beers */
 export type BeersInput = {
   page: Scalars['Int'];
   pageSize: Scalars['Int'];
@@ -44,8 +45,20 @@ export enum LikeAction {
 
 export type Mutation = {
    __typename?: 'Mutation';
+  /**
+   * Register mutation
+   * @deprecated Field no longer supported
+   */
   register: User;
-  login?: Maybe<User>;
+  /**
+   * Login mutation.
+   * If the user does not exist, the user is created
+   */
+  login: User;
+  /**
+   * Add a beer in favorites.
+   * The request need to be authenticated to call this mutation.
+   */
   toogleBeerLike: User;
 };
 
@@ -73,8 +86,14 @@ export type Query = {
    * You need to specify the page and the pageSize of `BeersInput`
    */
   beers: Array<Beer>;
+  /** Request users */
   users: Array<User>;
+  /** Request a user by id */
   user?: Maybe<User>;
+  /**
+   * Request the current authentified user.
+   * Return `null` if the user is not authentified
+   */
   me?: Maybe<User>;
 };
 
@@ -95,8 +114,20 @@ export type QueryUserArgs = {
 
 export type Subscription = {
    __typename?: 'Subscription';
-  userLoggedIn?: Maybe<User>;
-  userLikedABeer?: Maybe<UserLike>;
+  /**
+   * Suscribe to users connections to the app.
+   * Deprecated because the service is deployed on serverless,
+   * and it does not handle WebSockets.
+   * @deprecated Field no longer supported
+   */
+  userLoggedIn: User;
+  /**
+   * Suscribe to `like` events.
+   * Deprecated because the service is deployed on serverless,
+   * and it does not handle WebSockets.
+   * @deprecated Field no longer supported
+   */
+  userLikedABeer: UserLike;
 };
 
 export type User = {
@@ -227,7 +258,7 @@ export type BeerResolvers<ContextType = any, ParentType extends ResolversParentT
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   register?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationRegisterArgs, 'name'>>,
-  login?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationLoginArgs, 'name'>>,
+  login?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationLoginArgs, 'name'>>,
   toogleBeerLike?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationToogleBeerLikeArgs, 'beerId'>>,
 };
 
@@ -240,8 +271,8 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 };
 
 export type SubscriptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = {
-  userLoggedIn?: SubscriptionResolver<Maybe<ResolversTypes['User']>, "userLoggedIn", ParentType, ContextType>,
-  userLikedABeer?: SubscriptionResolver<Maybe<ResolversTypes['UserLike']>, "userLikedABeer", ParentType, ContextType>,
+  userLoggedIn?: SubscriptionResolver<ResolversTypes['User'], "userLoggedIn", ParentType, ContextType>,
+  userLikedABeer?: SubscriptionResolver<ResolversTypes['UserLike'], "userLikedABeer", ParentType, ContextType>,
 };
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {

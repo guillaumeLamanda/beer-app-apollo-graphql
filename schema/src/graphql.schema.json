@@ -87,7 +87,7 @@
           },
           {
             "name": "users",
-            "description": null,
+            "description": "Request users",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -111,7 +111,7 @@
           },
           {
             "name": "user",
-            "description": null,
+            "description": "Request a user by id",
             "args": [
               {
                 "name": "id",
@@ -138,7 +138,7 @@
           },
           {
             "name": "me",
-            "description": null,
+            "description": "Request the current authentified user.\nReturn `null` if the user is not authentified",
             "args": [],
             "type": {
               "kind": "OBJECT",
@@ -252,7 +252,7 @@
       {
         "kind": "INPUT_OBJECT",
         "name": "BeersInput",
-        "description": null,
+        "description": "Beer Input to require beers",
         "fields": null,
         "inputFields": [
           {
@@ -384,7 +384,38 @@
         "fields": [
           {
             "name": "register",
-            "description": null,
+            "description": "Register mutation",
+            "args": [
+              {
+                "name": "name",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
+            },
+            "isDeprecated": true,
+            "deprecationReason": "No longer supported"
+          },
+          {
+            "name": "login",
+            "description": "Login mutation.\nIf the user does not exist, the user is created",
             "args": [
               {
                 "name": "name",
@@ -414,35 +445,8 @@
             "deprecationReason": null
           },
           {
-            "name": "login",
-            "description": null,
-            "args": [
-              {
-                "name": "name",
-                "description": null,
-                "type": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  }
-                },
-                "defaultValue": null
-              }
-            ],
-            "type": {
-              "kind": "OBJECT",
-              "name": "User",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "toogleBeerLike",
-            "description": null,
+            "description": "Add a beer in favorites.\nThe request need to be authenticated to call this mutation.",
             "args": [
               {
                 "name": "beerId",
@@ -484,27 +488,35 @@
         "fields": [
           {
             "name": "userLoggedIn",
-            "description": null,
+            "description": "Suscribe to users connections to the app.\nDeprecated because the service is deployed on serverless,\nand it does not handle WebSockets.",
             "args": [],
             "type": {
-              "kind": "OBJECT",
-              "name": "User",
-              "ofType": null
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "No longer supported"
           },
           {
             "name": "userLikedABeer",
-            "description": null,
+            "description": "Suscribe to `like` events.\nDeprecated because the service is deployed on serverless,\nand it does not handle WebSockets.",
             "args": [],
             "type": {
-              "kind": "OBJECT",
-              "name": "UserLike",
-              "ofType": null
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "UserLike",
+                "ofType": null
+              }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "No longer supported"
           }
         ],
         "inputFields": null,
