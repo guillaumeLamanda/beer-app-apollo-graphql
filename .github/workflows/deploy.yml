@@ -1,7 +1,7 @@
 name: deploy website
-on: 
+on:
   push:
-    branches: 
+    branches:
       - master
 jobs:
   deploy:
@@ -16,10 +16,10 @@ jobs:
         uses: CultureHQ/actions-yarn@master
         with:
           args: build
-      - uses: amondnet/now-deployment@v2
+      - uses: amondnet/vercel-action@v19
         with:
-          zeit-token: ${{ secrets.ZEIT_TOKEN }}
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          now-args: "--prod"
-          now-org-id: ${{ secrets.ORG_ID}}
-          now-project-id: ${{ secrets.PROJECT_ID}}
+          vercel-args: "--prod"
+          vercel-org-id: ${{ secrets.ORG_ID}}
+          vercel-project-id: ${{ secrets.PROJECT_ID}}
