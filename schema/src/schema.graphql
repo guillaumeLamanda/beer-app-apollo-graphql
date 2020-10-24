@@ -15,6 +15,7 @@ type Beer {
   If you want a small text, use `tagline`
   """
   description: String!
+  abv: Float!
 }
 
 """
