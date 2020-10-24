@@ -21,5 +21,9 @@ export interface MeQuery_me {
 }
 
 export interface MeQuery {
+  /**
+   * Request the current authentified user.
+   * Return `null` if the user is not authentified
+   */
   me: MeQuery_me | null;
 }

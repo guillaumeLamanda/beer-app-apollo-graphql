@@ -21,6 +21,9 @@ export interface UserQuery_user {
 }
 
 export interface UserQuery {
+  /**
+   * Request a user by id
+   */
   user: UserQuery_user | null;
 }
 

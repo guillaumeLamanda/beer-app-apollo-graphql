@@ -30,6 +30,7 @@ export type Beer = {
    * If you want a small text, use `tagline`
    */
   description: Scalars['String'];
+  abv: Scalars['Float'];
 };
 
 /** Beer Input to require beers */
@@ -222,6 +223,7 @@ export type ResolversTypes = {
   ID: ResolverTypeWrapper<Scalars['ID']>,
   Beer: ResolverTypeWrapper<Beer>,
   String: ResolverTypeWrapper<Scalars['String']>,
+  Float: ResolverTypeWrapper<Scalars['Float']>,
   BeersInput: BeersInput,
   Int: ResolverTypeWrapper<Scalars['Int']>,
   User: ResolverTypeWrapper<UserModel>,
@@ -238,6 +240,7 @@ export type ResolversParentTypes = {
   ID: Scalars['ID'],
   Beer: Beer,
   String: Scalars['String'],
+  Float: Scalars['Float'],
   BeersInput: BeersInput,
   Int: Scalars['Int'],
   User: UserModel,
@@ -253,6 +256,7 @@ export type BeerResolvers<ContextType = any, ParentType extends ResolversParentT
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   tagline?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  abv?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 

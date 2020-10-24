@@ -21,5 +21,8 @@ export interface UsersPreviewQuery_users {
 }
 
 export interface UsersPreviewQuery {
+  /**
+   * Request users
+   */
   users: UsersPreviewQuery_users[];
 }

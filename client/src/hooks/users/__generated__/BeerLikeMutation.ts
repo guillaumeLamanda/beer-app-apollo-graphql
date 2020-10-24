@@ -19,6 +19,10 @@ export interface BeerLikeMutation_toogleBeerLike {
 }
 
 export interface BeerLikeMutation {
+  /**
+   * Add a beer in favorites.
+   * The request need to be authenticated to call this mutation.
+   */
   toogleBeerLike: BeerLikeMutation_toogleBeerLike;
 }
 

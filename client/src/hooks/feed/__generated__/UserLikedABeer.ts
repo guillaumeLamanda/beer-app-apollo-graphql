@@ -29,5 +29,10 @@ export interface UserLikedABeer_userLikedABeer {
 }
 
 export interface UserLikedABeer {
-  userLikedABeer: UserLikedABeer_userLikedABeer | null;
+  /**
+   * Suscribe to `like` events.
+   * Deprecated because the service is deployed on serverless,
+   * and it does not handle WebSockets.
+   */
+  userLikedABeer: UserLikedABeer_userLikedABeer;
 }

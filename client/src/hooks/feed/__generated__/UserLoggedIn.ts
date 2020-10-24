@@ -14,5 +14,10 @@ export interface UserLoggedIn_userLoggedIn {
 }
 
 export interface UserLoggedIn {
-  userLoggedIn: UserLoggedIn_userLoggedIn | null;
+  /**
+   * Suscribe to users connections to the app.
+   * Deprecated because the service is deployed on serverless,
+   * and it does not handle WebSockets.
+   */
+  userLoggedIn: UserLoggedIn_userLoggedIn;
 }
