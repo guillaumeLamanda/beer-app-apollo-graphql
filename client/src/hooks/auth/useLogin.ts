@@ -1,11 +1,11 @@
 import { gql } from "apollo-boost";
 import { useMutation } from "@apollo/react-hooks";
-import { User } from "@ba/schema/src";
 import { meQuery } from "../users";
 import { BeerPreviewFragment } from "../beers";
+import { Login, LoginVariables } from "./__generated__/Login";
 
 const mutation = gql`
-  mutation login($name: String!) {
+  mutation Login($name: String!) {
     login(name: $name) {
       id
       name
@@ -18,11 +18,8 @@ const mutation = gql`
   ${BeerPreviewFragment}
 `;
 
-type TData = { login: User };
-type TVariables = { name: string };
-
 export const useLogin = () => {
-  const [loginMutation, res] = useMutation<TData, TVariables>(mutation, {
+  const [loginMutation, res] = useMutation<Login, LoginVariables>(mutation, {
     update: (cache, { data }) => {
       cache.writeQuery({
         query: meQuery,

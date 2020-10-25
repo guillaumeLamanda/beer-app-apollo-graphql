@@ -1,6 +1,5 @@
 import { gql } from "apollo-boost";
 import { BeerPreviewFragment } from "../beers";
-import { User } from "@ba/schema/src";
 import { useQuery } from "@apollo/react-hooks";
 import { useMemo } from "react";
 import { UserQuery, UserQueryVariables } from "./__generated__/UserQuery";
@@ -18,9 +17,6 @@ const query = gql`
 
   ${BeerPreviewFragment}
 `;
-
-type TData = { user: User };
-type TVarible = { userId: string };
 
 export const useUser = (userId: string) => {
   const { data, ...rest } = useQuery<UserQuery, UserQueryVariables>(query, {
