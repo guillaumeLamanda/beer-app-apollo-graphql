@@ -13,8 +13,6 @@ export const BeersPage = () => {
     nextPage,
   } = useBeersPreview();
 
-  if (loading) return <p>Chargement...</p>;
-  if (error) return <p>{error.message}</p>;
   return (
     <>
       <Box fill>
@@ -29,6 +27,8 @@ export const BeersPage = () => {
           />{" "}
         </Text>
         <BeersList beers={beers} />
+        {loading && <p>Chargement...</p>}
+        {error && <p>{`erreur : ${error.message}`}</p>}
       </Box>
       <Pagination page={page} onPrevious={previousPage} onNext={nextPage} />
     </>
