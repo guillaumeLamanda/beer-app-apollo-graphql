@@ -11,7 +11,7 @@
     "apollo-link-context": "^1.0.20",
     "apollo-link-http": "^1.5.17",
     "apollo-link-ws": "^1.0.20",
-    "graphql": "^15.0.0",
+    "graphql": "^14.0.0",
     "grommet": "^2.13.0",
     "grommet-icons": "^4.4.0",
     "lodash": "^4.17.20",
