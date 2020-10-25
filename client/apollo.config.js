@@ -4,6 +4,6 @@ module.exports = {
       name: "beer-app",
       url: "http://localhost:5000",
     },
-    includes: ["./src/App.tsx", "./src/hooks/**/*.ts"],
+    includes: ["./src/apollo/**/*.ts", "./src/hooks/**/*.ts"],
   },
 };

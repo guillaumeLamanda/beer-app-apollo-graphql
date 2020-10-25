@@ -16,6 +16,7 @@
     "react"
   ],
   "scripts": {
+    "client:apollo:codegen": "yarn workspace @ba/client run apollo:codegen",
     "client:dev": "yarn workspace @ba/client run dev",
     "client:build": "yarn workspace @ba/client run build",
     "client:start": "yarn workspace @ba/client run start",
