@@ -3,9 +3,9 @@ on:
   push:
     branches:
       - master
-    pull_request:
-      branches:
-        - "**"
+  pull_request:
+    branches:
+      - "**"
 jobs:
   deploy:
     runs-on: ubuntu-latest
