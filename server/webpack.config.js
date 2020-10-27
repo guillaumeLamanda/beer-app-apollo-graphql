@@ -3,7 +3,6 @@ const nodeExternals = require("webpack-node-externals");
 const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
-  entry: "./src/index.ts",
   module: {
     rules: [
       {
@@ -13,7 +12,7 @@ module.exports = {
       },
       {
         test: /\.mjs$/,
-        include: /node_modules/,
+        // include: /node_modules/,
         type: "javascript/auto",
         resolve: {
           fullySpecified: false
@@ -33,10 +32,6 @@ module.exports = {
   },
   resolve: {
     extensions: [".js", ".mjs", ".jsx", ".json", ".ts", ".tsx"],
-  },
-  output: {
-    filename: "bundle.js",
-    path: path.resolve(__dirname, "dist"),
   },
   target: "node",
   externals: [nodeExternals()],
