@@ -15,6 +15,9 @@ module.exports = {
         test: /\.mjs$/,
         include: /node_modules/,
         type: "javascript/auto",
+        resolve: {
+          fullySpecified: false
+        },
       },
       {
         test: /\.graphql$/,
