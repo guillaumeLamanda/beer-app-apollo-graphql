@@ -5,7 +5,7 @@
   },
   "builds": [
     {
-      "src": "server/dist/bundle.js",
+      "src": "server/dist/main.js",
       "use": "@now/node"
     },
     {
@@ -16,7 +16,7 @@
   "routes": [
     {
       "src": "/graphql",
-      "dest": "/server/dist/bundle.js"
+      "dest": "/server/dist/main.js"
     },
     {
       "src": "/",
