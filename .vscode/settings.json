@@ -1,6 +1,7 @@
 {
   "conventionalCommits.scopes": [
     "client",
-    "schema"
+    "schema",
+    "server"
   ]
 }
