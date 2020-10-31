@@ -8,7 +8,7 @@ export type BeersListProps = {
 };
 
 export const BeersList: FC<BeersListProps> = ({ beers }) =>
-  !!beers.length ? (
+  beers.length ? (
     <InfiniteScroll items={beers}>
       {({ id, name }: Beer) => (
         <Box key={id} pad="medium">

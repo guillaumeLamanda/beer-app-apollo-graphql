@@ -3,7 +3,7 @@ import { Box, Text, Button, InfiniteScroll } from "grommet";
 import { User, Beer } from "@ba/schema/src";
 
 const BeersIndicator: FC<{ nb: number }> = ({ nb }) =>
-  !!nb ? (
+  nb ? (
     <Text color="text-weak" size="small">{`${nb} bière${
       nb > 1 ? "s" : ""
     }`}</Text>
