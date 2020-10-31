@@ -7,6 +7,7 @@ export class DbDatasource extends DataSource {
   db: PrismaClient;
 
   async initialize(config: DataSourceConfig<Context>) {
+    console.log("db url", process.env.DATABASE_URL);
     this.db = new PrismaClient({
       log: ["query", "error", "info", "warn"],
     });
