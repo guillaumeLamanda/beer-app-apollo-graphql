@@ -1,10 +1,8 @@
 import { createHttpLink } from "apollo-link-http";
-import { isProd, url } from "../../config";
-
-const protocol = isProd ? "https" : "http";
+import { httpGraphQlUrl } from "../../config";
 
 const httpLink = createHttpLink({
-  uri: `${protocol}://${url}${isProd ? "/graphql" : ""}`,
+  uri: httpGraphQlUrl,
 });
 
 export default httpLink;
