@@ -60,7 +60,13 @@ export const userResolvers: Resolvers<Context> = {
       authUser?.id === user.id || info.path.prev?.key === "login"
         ? user.token
         : null,
-    beers: (user, args, { dataSources: { beersApi } }) =>
-      beersApi.getBeersByIds(user.beers.map(({ beerId }) => beerId)),
+    beers: async (user, args, { dataSources: { beersApi, userDs } }) =>
+      beersApi.getBeersByIds(
+        (
+          await userDs.db.beer.findMany({
+            where: { users: { some: { id: user.id } } },
+          })
+        ).map(({ id }) => id)
+      ),
   },
 };
