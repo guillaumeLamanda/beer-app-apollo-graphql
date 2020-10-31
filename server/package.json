@@ -23,6 +23,7 @@
     "@types/jsonwebtoken": "^8.5.0",
     "@types/node": "^13.13.2",
     "@types/validator": "^13.0.0",
+    "dotenv-webpack": "^5.0.0",
     "graphql-tag": "^2.10.3",
     "ts-loader": "^8.0.7",
     "ts-node": "^9.0.0",
