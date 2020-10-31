@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgres"
   url      = env("DATABASE_URL")
 }
 
@@ -14,7 +14,7 @@ model Beer {
 
 model User {
   id        String   @id @default(uuid())
-  name      String
+  name      String   @unique
   token     String?
   beers     Beer[]   @relation
   createdAt DateTime @default(now())
