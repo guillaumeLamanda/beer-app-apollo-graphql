@@ -1,0 +1,6 @@
+{
+  "extends": [
+    "@ba/eslint-config-ba",
+    "plugin:@typescript-eslint/recommended"
+  ]
+}
