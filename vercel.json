@@ -3,6 +3,9 @@
   "github": {
     "enabled": false
   },
+  "env": {
+    "DATABASE_URL": "@beer-app-db-url"
+  },
   "builds": [
     {
       "src": "server/dist/main.js",
