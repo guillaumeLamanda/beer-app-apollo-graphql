@@ -8,7 +8,7 @@ generates:
       - "typescript-resolvers"
     config:
       mappers:
-        User: @ba/server/src/database/user.model#UserModel
+        User: @prisma/client/index.d#User as DbUser
   ./src/graphql.schema.json:
     plugins:
       - "introspection"
