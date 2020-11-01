@@ -10,7 +10,8 @@
     "build:watch": "webpack --watch --mode=development",
     "db:generate": "prisma generate",
     "dev": "yarn build:watch & nodemon -w dist/ dist/main.js",
-    "generate": "graphql-codegen --config codegen.yml"
+    "generate": "graphql-codegen --config codegen.yml",
+    "lint": "eslint ."
   },
   "devDependencies": {
     "@graphql-codegen/cli": "1.13.3",
@@ -27,7 +28,8 @@
     "ts-node": "^9.0.0",
     "webpack": "^5.3.0",
     "webpack-cli": "^4.1.0",
-    "webpack-node-externals": "^2.5.2"
+    "webpack-node-externals": "^2.5.2",
+    "@ba/eslint-config-ba": "1.0.0"
   },
   "dependencies": {
     "@ba/schema": "*",

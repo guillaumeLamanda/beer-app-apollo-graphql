@@ -33,7 +33,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "apollo:codegen": "apollo client:codegen --target typescript --globalTypesFile=src/globalTypes.ts"
+    "apollo:codegen": "apollo client:codegen --target typescript --globalTypesFile=src/globalTypes.ts",
+    "lint": "eslint ."
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -51,6 +52,7 @@
     ]
   },
   "devDependencies": {
+    "@ba/eslint-config-ba": "1.0.0",
     "@testing-library/dom": "^7.26.3",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^11.1.0",

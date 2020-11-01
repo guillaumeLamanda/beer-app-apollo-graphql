@@ -5,7 +5,8 @@
   "workspaces": [
     "client",
     "schema",
-    "server"
+    "server",
+    "eslint-config-ba"
   ],
   "keywords": [
     "workspaces",
@@ -18,9 +19,11 @@
   "scripts": {
     "client:apollo:codegen": "yarn workspace @ba/client run apollo:codegen",
     "client:dev": "yarn workspace @ba/client run dev",
+    "client:lint": "yarn workspace @ba/client run lint",
     "client:build": "yarn workspace @ba/client run build",
     "client:start": "yarn workspace @ba/client run start",
     "server:start": "yarn workspace @ba/server run start",
+    "server:lint": "yarn workspace @ba/server run lint",
     "server:build": "yarn workspace @ba/server run build",
     "server:dev": "yarn workspace @ba/server run dev",
     "server:generate": "yarn workspace @ba/server run generate",

@@ -1,0 +1,10 @@
+{
+  "extends": [
+    "@ba/eslint-config-ba",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "rules": {
+    "@typescript-eslint/no-var-requires": 1,
+    "@typescript-eslint/camelcase": 1
+  }
+}

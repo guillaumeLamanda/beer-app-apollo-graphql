@@ -1,0 +1,12 @@
+{
+  "name": "@ba/eslint-config-ba",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "eslint": "^7.12.1"
+  }
+}
