@@ -37,7 +37,7 @@ module.exports = {
   },
   plugins: [
     new DotEnv(),
-    new CopyWebpackPlugin(['./prisma/schema.prisma']),
+    new CopyWebpackPlugin({ patterns: ['./prisma/schema.prisma'] }),
   ],
   target: "node",
   externals: [nodeExternals()],
