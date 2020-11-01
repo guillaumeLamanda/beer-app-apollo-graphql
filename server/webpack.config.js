@@ -35,7 +35,7 @@ module.exports = {
     extensions: [".js", ".mjs", ".jsx", ".json", ".ts", ".tsx"],
   },
   watchOptions: {
-    ignored: [/node_modules/, /dist/]
+    ignored: ["/node_modules/", "/dist/"]
   },
   plugins: [
     new DotEnv(),
