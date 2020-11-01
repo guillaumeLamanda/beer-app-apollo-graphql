@@ -40,7 +40,7 @@ module.exports = {
   },
   plugins: [
     new DotEnv(),
-    new CopyWebpackPlugin({ patterns: ['./../node_modules/@prisma/client'] }),
+    // new CopyWebpackPlugin({ patterns: ['./../node_modules/@prisma/client'] }),
   ],
   target: "node",
   externals: [nodeExternals()],
