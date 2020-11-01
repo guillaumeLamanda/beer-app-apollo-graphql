@@ -2,6 +2,7 @@
 const nodeExternals = require("webpack-node-externals");
 const DotEnv = require("dotenv-webpack");
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 
 module.exports = {
   module: {
@@ -45,5 +46,14 @@ module.exports = {
   externals: [nodeExternals()],
   optimization: {
     minimize: false,
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          ecma: true,
+          keep_fnames: true,
+          sourceMap: true,
+        },
+      })
+    ]
   },
 };
