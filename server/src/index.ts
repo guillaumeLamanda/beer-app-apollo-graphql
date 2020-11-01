@@ -4,8 +4,6 @@ import schema from "@ba/schema/src/schema.graphql";
 import { UserDataSource, userResolvers } from "./users";
 import { context } from "./context";
 
-console.log(process.env.DATABASE_URL);
-
 const server = new ApolloServer({
   typeDefs: schema,
   resolvers: [beerResolvers, userResolvers],

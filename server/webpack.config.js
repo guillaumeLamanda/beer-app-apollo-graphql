@@ -1,6 +1,8 @@
+/* eslint-disable  */
 const nodeExternals = require("webpack-node-externals");
 const TerserPlugin = require("terser-webpack-plugin");
 const DotEnv = require("dotenv-webpack");
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   module: {
@@ -35,6 +37,7 @@ module.exports = {
   },
   plugins: [
     new DotEnv(),
+    new CopyWebpackPlugin(['./prisma/schema.prisma']),
   ],
   target: "node",
   externals: [nodeExternals()],
