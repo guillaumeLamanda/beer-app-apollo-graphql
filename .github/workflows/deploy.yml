@@ -12,13 +12,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Install
-        uses: CultureHQ/actions-yarn@master
-        with:
-          args: install
-      - name: Build
-        uses: CultureHQ/actions-yarn@master
-        with:
-          args: build
+        uses: actions/setup-node@v2-beta
+      - run: yarn
+      - run: yarn client:build
+      - run: yarn server:build
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
       - uses: amondnet/vercel-action@v19
