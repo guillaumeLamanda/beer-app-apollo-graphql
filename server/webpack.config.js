@@ -1,6 +1,5 @@
 /* eslint-disable  */
 const nodeExternals = require("webpack-node-externals");
-const TerserPlugin = require("terser-webpack-plugin");
 const DotEnv = require("dotenv-webpack");
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
@@ -35,9 +34,12 @@ module.exports = {
   resolve: {
     extensions: [".js", ".mjs", ".jsx", ".json", ".ts", ".tsx"],
   },
+  watchOptions: {
+    ignored: [/node_modules/, /dist/]
+  },
   plugins: [
     new DotEnv(),
-    new CopyWebpackPlugin({ patterns: ['./prisma/schema.prisma', './../node_modules/@prisma/client'] }),
+    new CopyWebpackPlugin({ patterns: ['./../node_modules/@prisma/client'] }),
   ],
   target: "node",
   externals: [nodeExternals()],

@@ -42,8 +42,7 @@
     "graphql-subscriptions": "^1.1.0",
     "jsonwebtoken": "^8.5.1"
   },
-  "resolutions": {
-    "graphql": "^14.0.0",
-    "type-graphql/graphql": "^14.0.2"
+  "peerDependencies": {
+    "lru-cache": "*"
   }
 }
