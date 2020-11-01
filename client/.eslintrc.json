@@ -1,6 +1,6 @@
 {
   "extends": [
-    "@ba/eslint-config-ba",
+    "@ba/eslint-config",
     "react-app"
   ]
 }

@@ -6,7 +6,7 @@
     "client",
     "schema",
     "server",
-    "eslint-config-ba"
+    "config/*"
   ],
   "keywords": [
     "workspaces",
