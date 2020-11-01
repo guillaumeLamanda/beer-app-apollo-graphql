@@ -15,6 +15,7 @@ jobs:
         uses: actions/setup-node@v2-beta
       - run: yarn
       - run: yarn client:build
+      - run: yarn workspace @ba/server db:generate
       - run: yarn server:build
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}

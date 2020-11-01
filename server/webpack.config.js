@@ -42,13 +42,6 @@ module.exports = {
   target: "node",
   externals: [nodeExternals()],
   optimization: {
-    minimize: true,
-    minimizer: [
-      new TerserPlugin({
-        terserOptions: {
-          keep_fnames: true,
-        },
-      }),
-    ],
+    minimize: false,
   },
 };

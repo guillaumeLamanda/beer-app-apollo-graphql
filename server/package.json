@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node dist/bundle.js",
-    "build": "yarn db:generate && webpack --mode=production",
+    "build": "webpack --mode=production",
     "build:watch": "webpack --watch --mode=development",
     "db:generate": "prisma generate",
     "dev": "yarn build:watch & nodemon -w dist/ dist/main.js",
