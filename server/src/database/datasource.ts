@@ -1,30 +1,16 @@
 import { DataSource, DataSourceConfig } from "apollo-datasource";
-import { Sequelize } from "sequelize-typescript";
-import { __Directive } from "graphql";
-import { UserModel } from "./user.model";
-import { UserBeersModel } from "./beer.model";
 import { Context } from "../context";
-
-let sequelize: Sequelize;
-(async () => {
-  if (!sequelize) {
-    sequelize = new Sequelize({
-      database: "db",
-      dialect: "sqlite",
-      storage:
-        process.env.NODE_ENV === "production" ? "/tmp/db.sqite" : "./db.sqlite",
-      models: [UserModel, UserBeersModel],
-    });
-    await sequelize.sync();
-  }
-})();
+import { PrismaClient } from "@prisma/client";
 
 export class DbDatasource extends DataSource {
   context: Context;
-  db: Sequelize;
+  db: PrismaClient;
 
   async initialize(config: DataSourceConfig<Context>) {
-    this.db = sequelize;
+    console.log("db url", process.env.DATABASE_URL);
+    this.db = new PrismaClient({
+      log: ["query", "error", "info", "warn"],
+    });
     this.context = config.context;
   }
 }

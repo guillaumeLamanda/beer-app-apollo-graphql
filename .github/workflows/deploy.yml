@@ -19,7 +19,21 @@ jobs:
         uses: CultureHQ/actions-yarn@master
         with:
           args: build
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
       - uses: amondnet/vercel-action@v19
+        id: vercel-action-staging
+        if: github.event_name == 'pull_request'
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          vercel-org-id: ${{ secrets.ORG_ID}}
+          vercel-project-id: ${{ secrets.PROJECT_ID}}
+          alias-domains: |
+            pr-{{PR_NUMBER}}.beer-app.lamanda.fr
+      - uses: amondnet/vercel-action@v19
+        id: vercel-action-production
+        if: github.event_name == 'push'
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}

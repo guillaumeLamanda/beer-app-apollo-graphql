@@ -29,7 +29,7 @@
     "server:generate": "yarn workspace @ba/server run generate",
     "schema:dev": "yarn workspace @ba/schema run generate -w",
     "schema:generate": "yarn workspace @ba/schema run generate",
-    "build": "yarn server:build & yarn client:build",
+    "build": "yarn workspace @ba/server db:generate && yarn server:build && yarn client:build",
     "start": "yarn server:start"
   },
   "author": "Guillaume Lamanda <guillaume.lamanda@gmail.com>",

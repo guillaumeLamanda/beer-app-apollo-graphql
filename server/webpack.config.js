@@ -1,5 +1,6 @@
 const nodeExternals = require("webpack-node-externals");
 const TerserPlugin = require("terser-webpack-plugin");
+const DotEnv = require("dotenv-webpack");
 
 module.exports = {
   module: {
@@ -32,6 +33,9 @@ module.exports = {
   resolve: {
     extensions: [".js", ".mjs", ".jsx", ".json", ".ts", ".tsx"],
   },
+  plugins: [
+    new DotEnv(),
+  ],
   target: "node",
   externals: [nodeExternals()],
   optimization: {

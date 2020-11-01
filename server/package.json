@@ -8,6 +8,7 @@
     "start": "node dist/bundle.js",
     "build": "webpack --mode=production",
     "build:watch": "webpack --watch --mode=development",
+    "db:generate": "prisma generate",
     "dev": "yarn build:watch & nodemon -w dist/ dist/main.js",
     "generate": "graphql-codegen --config codegen.yml",
     "lint": "eslint ."
@@ -15,13 +16,13 @@
   "devDependencies": {
     "@graphql-codegen/cli": "1.13.3",
     "@graphql-codegen/introspection": "^1.13.3",
-    "@graphql-codegen/typescript": "1.13.3",
+    "@graphql-codegen/typescript": "1.17.11",
     "@graphql-codegen/typescript-resolvers": "1.13.3",
-    "@types/bluebird": "^3.5.30",
+    "@prisma/cli": "^2.10.1",
     "@types/express": "^4.17.6",
     "@types/jsonwebtoken": "^8.5.0",
     "@types/node": "^13.13.2",
-    "@types/validator": "^13.0.0",
+    "dotenv-webpack": "^5.0.0",
     "graphql-tag": "^2.10.3",
     "ts-loader": "^8.0.7",
     "ts-node": "^9.0.0",
@@ -32,16 +33,13 @@
   },
   "dependencies": {
     "@ba/schema": "*",
+    "@prisma/client": "^2.10.1",
     "apollo-datasource": "^0.7.0",
-    "apollo-datasource-rest": "^0.8.1",
+    "apollo-datasource-rest": "^0.9.5",
     "apollo-server": "^2.18.2",
     "graphql": "^14.0.0",
     "graphql-subscriptions": "^1.1.0",
-    "jsonwebtoken": "^8.5.1",
-    "reflect-metadata": "^0.1.13",
-    "sequelize": "^5.21.7",
-    "sequelize-typescript": "^1.1.0",
-    "sqlite3": "^4.1.1"
+    "jsonwebtoken": "^8.5.1"
   },
   "resolutions": {
     "graphql": "^14.0.0",

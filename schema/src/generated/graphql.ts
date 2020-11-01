@@ -1,8 +1,11 @@
-import { GraphQLResolveInfo } from 'graphql';
-import { UserModel } from '@ba/server/src/database/user.model';
+import { GraphQLResolveInfo } from "graphql";
+import { User as DbUser } from "@prisma/client/index.d";
 export type Maybe<T> = T | null;
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
+export type RequireFields<T, K extends keyof T> = {
+  [X in Exclude<keyof T, K>]?: T[X];
+} &
+  { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -17,35 +20,35 @@ export type Scalars = {
  * agregated from [punk api](https://punkapi.com/documentation/v2)
  */
 export type Beer = {
-   __typename?: 'Beer';
-  id: Scalars['ID'];
-  name: Scalars['String'];
+  __typename?: "Beer";
+  id: Scalars["ID"];
+  name: Scalars["String"];
   /**
    * Small Description of the beer
    * **small** mean it is a short text
    */
-  tagline: Scalars['String'];
+  tagline: Scalars["String"];
   /**
    * Complete description of the beer.
    * If you want a small text, use `tagline`
    */
-  description: Scalars['String'];
-  abv: Scalars['Float'];
+  description: Scalars["String"];
+  abv: Scalars["Float"];
 };
 
 /** Beer Input to require beers */
 export type BeersInput = {
-  page: Scalars['Int'];
-  pageSize: Scalars['Int'];
+  page: Scalars["Int"];
+  pageSize: Scalars["Int"];
 };
 
 export enum LikeAction {
-  Like = 'like',
-  Dislike = 'dislike'
+  Like = "like",
+  Dislike = "dislike",
 }
 
 export type Mutation = {
-   __typename?: 'Mutation';
+  __typename?: "Mutation";
   /**
    * Register mutation
    * @deprecated Field no longer supported
@@ -63,23 +66,20 @@ export type Mutation = {
   toogleBeerLike: User;
 };
 
-
 export type MutationRegisterArgs = {
-  name: Scalars['String'];
+  name: Scalars["String"];
 };
-
 
 export type MutationLoginArgs = {
-  name: Scalars['String'];
+  name: Scalars["String"];
 };
 
-
 export type MutationToogleBeerLikeArgs = {
-  beerId: Scalars['ID'];
+  beerId: Scalars["ID"];
 };
 
 export type Query = {
-   __typename?: 'Query';
+  __typename?: "Query";
   /** Request a `Beer` by an ID */
   beer: Beer;
   /**
@@ -98,23 +98,20 @@ export type Query = {
   me?: Maybe<User>;
 };
 
-
 export type QueryBeerArgs = {
-  id: Scalars['ID'];
+  id: Scalars["ID"];
 };
-
 
 export type QueryBeersArgs = {
   input: BeersInput;
 };
 
-
 export type QueryUserArgs = {
-  id: Scalars['ID'];
+  id: Scalars["ID"];
 };
 
 export type Subscription = {
-   __typename?: 'Subscription';
+  __typename?: "Subscription";
   /**
    * Suscribe to users connections to the app.
    * Deprecated because the service is deployed on serverless,
@@ -132,24 +129,21 @@ export type Subscription = {
 };
 
 export type User = {
-   __typename?: 'User';
-  id: Scalars['ID'];
-  name: Scalars['String'];
-  token?: Maybe<Scalars['String']>;
+  __typename?: "User";
+  id: Scalars["ID"];
+  name: Scalars["String"];
+  token?: Maybe<Scalars["String"]>;
   beers: Array<Beer>;
 };
 
 export type UserLike = {
-   __typename?: 'UserLike';
+  __typename?: "UserLike";
   user: User;
   beer: Beer;
   action: LikeAction;
 };
 
-
-
 export type ResolverTypeWrapper<T> = Promise<T> | T;
-
 
 export type StitchingResolver<TResult, TParent, TContext, TArgs> = {
   fragment: string;
@@ -181,9 +175,25 @@ export type SubscriptionResolveFn<TResult, TParent, TContext, TArgs> = (
   info: GraphQLResolveInfo
 ) => TResult | Promise<TResult>;
 
-export interface SubscriptionSubscriberObject<TResult, TKey extends string, TParent, TContext, TArgs> {
-  subscribe: SubscriptionSubscribeFn<{ [key in TKey]: TResult }, TParent, TContext, TArgs>;
-  resolve?: SubscriptionResolveFn<TResult, { [key in TKey]: TResult }, TContext, TArgs>;
+export interface SubscriptionSubscriberObject<
+  TResult,
+  TKey extends string,
+  TParent,
+  TContext,
+  TArgs
+> {
+  subscribe: SubscriptionSubscribeFn<
+    { [key in TKey]: TResult },
+    TParent,
+    TContext,
+    TArgs
+  >;
+  resolve?: SubscriptionResolveFn<
+    TResult,
+    { [key in TKey]: TResult },
+    TContext,
+    TArgs
+  >;
 }
 
 export interface SubscriptionResolverObject<TResult, TParent, TContext, TArgs> {
@@ -191,12 +201,26 @@ export interface SubscriptionResolverObject<TResult, TParent, TContext, TArgs> {
   resolve: SubscriptionResolveFn<TResult, any, TContext, TArgs>;
 }
 
-export type SubscriptionObject<TResult, TKey extends string, TParent, TContext, TArgs> =
+export type SubscriptionObject<
+  TResult,
+  TKey extends string,
+  TParent,
+  TContext,
+  TArgs
+> =
   | SubscriptionSubscriberObject<TResult, TKey, TParent, TContext, TArgs>
   | SubscriptionResolverObject<TResult, TParent, TContext, TArgs>;
 
-export type SubscriptionResolver<TResult, TKey extends string, TParent = {}, TContext = {}, TArgs = {}> =
-  | ((...args: any[]) => SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>)
+export type SubscriptionResolver<
+  TResult,
+  TKey extends string,
+  TParent = {},
+  TContext = {},
+  TArgs = {}
+> =
+  | ((
+      ...args: any[]
+    ) => SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>)
   | SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>;
 
 export type TypeResolveFn<TTypes, TParent = {}, TContext = {}> = (
@@ -205,11 +229,19 @@ export type TypeResolveFn<TTypes, TParent = {}, TContext = {}> = (
   info: GraphQLResolveInfo
 ) => Maybe<TTypes> | Promise<Maybe<TTypes>>;
 
-export type isTypeOfResolverFn<T = {}> = (obj: T, info: GraphQLResolveInfo) => boolean | Promise<boolean>;
+export type isTypeOfResolverFn<T = {}> = (
+  obj: T,
+  info: GraphQLResolveInfo
+) => boolean | Promise<boolean>;
 
 export type NextResolverFn<T> = () => Promise<T>;
 
-export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs = {}> = (
+export type DirectiveResolverFn<
+  TResult = {},
+  TParent = {},
+  TContext = {},
+  TArgs = {}
+> = (
   next: NextResolverFn<TResult>,
   parent: TParent,
   args: TArgs,
@@ -219,93 +251,152 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  Query: ResolverTypeWrapper<{}>,
-  ID: ResolverTypeWrapper<Scalars['ID']>,
-  Beer: ResolverTypeWrapper<Beer>,
-  String: ResolverTypeWrapper<Scalars['String']>,
-  Float: ResolverTypeWrapper<Scalars['Float']>,
-  BeersInput: BeersInput,
-  Int: ResolverTypeWrapper<Scalars['Int']>,
-  User: ResolverTypeWrapper<UserModel>,
-  Mutation: ResolverTypeWrapper<{}>,
-  Subscription: ResolverTypeWrapper<{}>,
-  UserLike: ResolverTypeWrapper<Omit<UserLike, 'user'> & { user: ResolversTypes['User'] }>,
-  LikeAction: LikeAction,
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
+  Query: ResolverTypeWrapper<{}>;
+  ID: ResolverTypeWrapper<Scalars["ID"]>;
+  Beer: ResolverTypeWrapper<Beer>;
+  String: ResolverTypeWrapper<Scalars["String"]>;
+  Float: ResolverTypeWrapper<Scalars["Float"]>;
+  BeersInput: BeersInput;
+  Int: ResolverTypeWrapper<Scalars["Int"]>;
+  User: ResolverTypeWrapper<DbUser>;
+  Mutation: ResolverTypeWrapper<{}>;
+  Subscription: ResolverTypeWrapper<{}>;
+  UserLike: ResolverTypeWrapper<
+    Omit<UserLike, "user"> & { user: ResolversTypes["User"] }
+  >;
+  LikeAction: LikeAction;
+  Boolean: ResolverTypeWrapper<Scalars["Boolean"]>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  Query: {},
-  ID: Scalars['ID'],
-  Beer: Beer,
-  String: Scalars['String'],
-  Float: Scalars['Float'],
-  BeersInput: BeersInput,
-  Int: Scalars['Int'],
-  User: UserModel,
-  Mutation: {},
-  Subscription: {},
-  UserLike: Omit<UserLike, 'user'> & { user: ResolversParentTypes['User'] },
-  LikeAction: LikeAction,
-  Boolean: Scalars['Boolean'],
+  Query: {};
+  ID: Scalars["ID"];
+  Beer: Beer;
+  String: Scalars["String"];
+  Float: Scalars["Float"];
+  BeersInput: BeersInput;
+  Int: Scalars["Int"];
+  User: DbUser;
+  Mutation: {};
+  Subscription: {};
+  UserLike: Omit<UserLike, "user"> & { user: ResolversParentTypes["User"] };
+  LikeAction: LikeAction;
+  Boolean: Scalars["Boolean"];
 };
 
-export type BeerResolvers<ContextType = any, ParentType extends ResolversParentTypes['Beer'] = ResolversParentTypes['Beer']> = {
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
-  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  tagline?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  abv?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+export type BeerResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes["Beer"] = ResolversParentTypes["Beer"]
+> = {
+  id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  tagline?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  description?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  abv?: Resolver<ResolversTypes["Float"], ParentType, ContextType>;
+  __isTypeOf?: isTypeOfResolverFn<ParentType>;
 };
 
-export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  register?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationRegisterArgs, 'name'>>,
-  login?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationLoginArgs, 'name'>>,
-  toogleBeerLike?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationToogleBeerLikeArgs, 'beerId'>>,
+export type MutationResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes["Mutation"] = ResolversParentTypes["Mutation"]
+> = {
+  register?: Resolver<
+    ResolversTypes["User"],
+    ParentType,
+    ContextType,
+    RequireFields<MutationRegisterArgs, "name">
+  >;
+  login?: Resolver<
+    ResolversTypes["User"],
+    ParentType,
+    ContextType,
+    RequireFields<MutationLoginArgs, "name">
+  >;
+  toogleBeerLike?: Resolver<
+    ResolversTypes["User"],
+    ParentType,
+    ContextType,
+    RequireFields<MutationToogleBeerLikeArgs, "beerId">
+  >;
 };
 
-export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  beer?: Resolver<ResolversTypes['Beer'], ParentType, ContextType, RequireFields<QueryBeerArgs, 'id'>>,
-  beers?: Resolver<Array<ResolversTypes['Beer']>, ParentType, ContextType, RequireFields<QueryBeersArgs, 'input'>>,
-  users?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>,
-  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserArgs, 'id'>>,
-  me?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+export type QueryResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes["Query"] = ResolversParentTypes["Query"]
+> = {
+  beer?: Resolver<
+    ResolversTypes["Beer"],
+    ParentType,
+    ContextType,
+    RequireFields<QueryBeerArgs, "id">
+  >;
+  beers?: Resolver<
+    Array<ResolversTypes["Beer"]>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryBeersArgs, "input">
+  >;
+  users?: Resolver<Array<ResolversTypes["User"]>, ParentType, ContextType>;
+  user?: Resolver<
+    Maybe<ResolversTypes["User"]>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryUserArgs, "id">
+  >;
+  me?: Resolver<Maybe<ResolversTypes["User"]>, ParentType, ContextType>;
 };
 
-export type SubscriptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = {
-  userLoggedIn?: SubscriptionResolver<ResolversTypes['User'], "userLoggedIn", ParentType, ContextType>,
-  userLikedABeer?: SubscriptionResolver<ResolversTypes['UserLike'], "userLikedABeer", ParentType, ContextType>,
+export type SubscriptionResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes["Subscription"] = ResolversParentTypes["Subscription"]
+> = {
+  userLoggedIn?: SubscriptionResolver<
+    ResolversTypes["User"],
+    "userLoggedIn",
+    ParentType,
+    ContextType
+  >;
+  userLikedABeer?: SubscriptionResolver<
+    ResolversTypes["UserLike"],
+    "userLikedABeer",
+    ParentType,
+    ContextType
+  >;
 };
 
-export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
-  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  token?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  beers?: Resolver<Array<ResolversTypes['Beer']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+export type UserResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes["User"] = ResolversParentTypes["User"]
+> = {
+  id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  token?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  beers?: Resolver<Array<ResolversTypes["Beer"]>, ParentType, ContextType>;
+  __isTypeOf?: isTypeOfResolverFn<ParentType>;
 };
 
-export type UserLikeResolvers<ContextType = any, ParentType extends ResolversParentTypes['UserLike'] = ResolversParentTypes['UserLike']> = {
-  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>,
-  beer?: Resolver<ResolversTypes['Beer'], ParentType, ContextType>,
-  action?: Resolver<ResolversTypes['LikeAction'], ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+export type UserLikeResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes["UserLike"] = ResolversParentTypes["UserLike"]
+> = {
+  user?: Resolver<ResolversTypes["User"], ParentType, ContextType>;
+  beer?: Resolver<ResolversTypes["Beer"], ParentType, ContextType>;
+  action?: Resolver<ResolversTypes["LikeAction"], ParentType, ContextType>;
+  __isTypeOf?: isTypeOfResolverFn<ParentType>;
 };
 
 export type Resolvers<ContextType = any> = {
-  Beer?: BeerResolvers<ContextType>,
-  Mutation?: MutationResolvers<ContextType>,
-  Query?: QueryResolvers<ContextType>,
-  Subscription?: SubscriptionResolvers<ContextType>,
-  User?: UserResolvers<ContextType>,
-  UserLike?: UserLikeResolvers<ContextType>,
+  Beer?: BeerResolvers<ContextType>;
+  Mutation?: MutationResolvers<ContextType>;
+  Query?: QueryResolvers<ContextType>;
+  Subscription?: SubscriptionResolvers<ContextType>;
+  User?: UserResolvers<ContextType>;
+  UserLike?: UserLikeResolvers<ContextType>;
 };
-
 
 /**
  * @deprecated
  * Use "Resolvers" root object instead. If you wish to get "IResolvers", add "typesPrefix: I" to your config.
-*/
+ */
 export type IResolvers<ContextType = any> = Resolvers<ContextType>;
