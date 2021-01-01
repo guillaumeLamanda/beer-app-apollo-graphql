@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@ba/server": "*",
-    "graphql": "14"
+    "graphql": "15"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "1.13.3",
