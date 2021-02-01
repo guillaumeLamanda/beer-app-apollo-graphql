@@ -7,6 +7,6 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "eslint": "^7.12.1"
+    "eslint": "^7.19.0"
   }
 }
