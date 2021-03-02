@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "@ba/eslint-config": "1.0.0",
-    "@graphql-codegen/cli": "1.13.3",
+    "@graphql-codegen/cli": "1.21.1",
     "@graphql-codegen/introspection": "^1.18.1",
     "@graphql-codegen/typescript": "1.17.11",
     "@graphql-codegen/typescript-resolvers": "1.13.3",
