@@ -19,7 +19,7 @@
     "@graphql-codegen/cli": "1.21.1",
     "@graphql-codegen/introspection": "^1.18.2",
     "@graphql-codegen/typescript": "1.17.11",
-    "@graphql-codegen/typescript-resolvers": "1.13.3",
+    "@graphql-codegen/typescript-resolvers": "1.19.1",
     "@prisma/cli": "^2.10.1",
     "@types/express": "^4.17.9",
     "@types/jsonwebtoken": "^8.5.0",
