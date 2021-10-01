@@ -24,7 +24,7 @@
     "@types/express": "^4.17.9",
     "@types/jsonwebtoken": "^8.5.0",
     "@types/node": "^13.13.2",
-    "copy-webpack-plugin": "^7.0.0",
+    "copy-webpack-plugin": "^9.0.1",
     "dotenv-webpack": "^5.0.0",
     "graphql-tag": "^2.10.3",
     "ts-loader": "^8.0.17",
