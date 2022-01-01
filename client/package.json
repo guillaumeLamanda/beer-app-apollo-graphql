@@ -24,7 +24,7 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
     "serve": "^11.3.2",
-    "styled-components": "^5.1.0",
+    "styled-components": "^5.3.3",
     "subscriptions-transport-ws": "^0.9.16"
   },
   "scripts": {
