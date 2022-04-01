@@ -16,7 +16,7 @@
     "grommet-icons": "^4.4.0",
     "lodash": "^4.17.21",
     "normalize.css": "^8.0.1",
-    "polished": "^3.5.2",
+    "polished": "^4.1.4",
     "react": "^16.13.1",
     "react-apollo-hooks": "^0.5.0",
     "react-dom": "^17.0.1",
