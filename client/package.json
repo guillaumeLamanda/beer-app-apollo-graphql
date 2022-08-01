@@ -20,7 +20,7 @@
     "react": "^16.13.1",
     "react-apollo-hooks": "^0.5.0",
     "react-dom": "^17.0.1",
-    "react-is": "^17.0.1",
+    "react-is": "^18.2.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
     "serve": "^11.3.2",
